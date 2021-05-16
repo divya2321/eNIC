@@ -1,5 +1,6 @@
 package com.eNIC.drp.api.eNICdrpAPI.enicentity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -14,10 +15,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="application")
-public class Application {
+public class Application implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idapplication", nullable = false)
 	private int idApplication;
 	

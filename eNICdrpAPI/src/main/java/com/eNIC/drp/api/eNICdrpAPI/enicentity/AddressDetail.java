@@ -1,6 +1,8 @@
 package com.eNIC.drp.api.eNICdrpAPI.enicentity;
 
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +16,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="addressdetail")
-public class AddressDetail {
+public class AddressDetail implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idaddressdetail", nullable = false)
 	private int idAddressDetail;
 	

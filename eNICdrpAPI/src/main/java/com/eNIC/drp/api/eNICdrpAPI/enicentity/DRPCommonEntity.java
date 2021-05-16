@@ -1,10 +1,30 @@
 package com.eNIC.drp.api.eNICdrpAPI.enicentity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 
-public class DRPCommonEntity {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+@JsonPropertyOrder({"idApplication", "applicationNo", "applicationType", "scannedApplication", "scannedGramaNiladhariCertificate", "recievedDate",
+					"idOldNic", "scannedOldNic", "oldNicNo", "idPoliceReport", "scannedPoliceReport", "idGeneralDetailOld", "expiredDate", "comment",
+					"idIcaoPhoto", "icaoPhoto", 
+					"idGeneralDetail", "nicNo", "familyName", "name", "surName", "dob", "gender", "civilStatus", "registeredDate", "fingerprint", "nicStatus", 
+					"idContactDetail", "residentNo", "mobileNo", "emailAddress", 
+					"idAddressPermanentDetail", "addressPermanentNo", "addressPermanentStreet1", "addressPermanentStreet2", "addressPermanentCity", "addressPermanentType", 
+					"idAddressResidentDetail", "addressResidentNo", "addressResidentStreet1", "addressResidentStreet2", "addressResidentCity", "addressResidentType", 
+					"idFamilyDetail", "motherName", "motherNic", "fatherName", "fatherNic"})
+@JsonInclude(Include.NON_NULL)
+public class DRPCommonEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	//application
 	private int idApplication;
 	private String applicationNo;
@@ -72,6 +92,73 @@ public class DRPCommonEntity {
 	private String motherNic;
 	private String fatherName;
 	private String fatherNic;
+	
+	public DRPCommonEntity() {
+		
+	}
+	
+	
+	public DRPCommonEntity(int idApplication, String applicationNo, String applicationType, String scannedApplication,
+			String scannedGramaNiladhariCertificate, Date recievedDate, int idOldNic, String scannedOldNic,
+			String oldNicNo, int idPoliceReport, String scannedPoliceReport, int idGeneralDetail, String nicNo,
+			String familyName, String name, String surName, Date dob, String gender, String civilStatus,
+			Date registeredDate, String fingerprint, boolean nicStatus, int idGeneralDetailOld, Date expiredDate,
+			String comment, int idIcaoPhoto, String icaoPhoto, int idContactDetail, String residentNo, String mobileNo,
+			String emailAddress, int idAddressPermanentDetail, String addressPermanentNo,
+			String addressPermanentStreet1, String addressPermanentStreet2, String addressPermanentCity,
+			String addressPermanentType, int idAddressResidentDetail, String addressResidentNo,
+			String addressResidentStreet1, String addressResidentStreet2, String addressResidentCity,
+			String addressResidentType, int idFamilyDetail, String motherName, String motherNic, String fatherName,
+			String fatherNic) {
+		this.idApplication = idApplication;
+		this.applicationNo = applicationNo;
+		this.applicationType = applicationType;
+		this.scannedApplication = scannedApplication;
+		this.scannedGramaNiladhariCertificate = scannedGramaNiladhariCertificate;
+		this.recievedDate = recievedDate;
+		this.idOldNic = idOldNic;
+		this.scannedOldNic = scannedOldNic;
+		this.oldNicNo = oldNicNo;
+		this.idPoliceReport = idPoliceReport;
+		this.scannedPoliceReport = scannedPoliceReport;
+		this.idGeneralDetail = idGeneralDetail;
+		this.nicNo = nicNo;
+		this.familyName = familyName;
+		this.name = name;
+		this.surName = surName;
+		this.dob = dob;
+		this.gender = gender;
+		this.civilStatus = civilStatus;
+		this.registeredDate = registeredDate;
+		this.fingerprint = fingerprint;
+		this.nicStatus = nicStatus;
+		this.idGeneralDetailOld = idGeneralDetailOld;
+		this.expiredDate = expiredDate;
+		this.comment = comment;
+		this.idIcaoPhoto = idIcaoPhoto;
+		this.icaoPhoto = icaoPhoto;
+		this.idContactDetail = idContactDetail;
+		this.residentNo = residentNo;
+		this.mobileNo = mobileNo;
+		this.emailAddress = emailAddress;
+		this.idAddressPermanentDetail = idAddressPermanentDetail;
+		this.addressPermanentNo = addressPermanentNo;
+		this.addressPermanentStreet1 = addressPermanentStreet1;
+		this.addressPermanentStreet2 = addressPermanentStreet2;
+		this.addressPermanentCity = addressPermanentCity;
+		this.addressPermanentType = addressPermanentType;
+		this.idAddressResidentDetail = idAddressResidentDetail;
+		this.addressResidentNo = addressResidentNo;
+		this.addressResidentStreet1 = addressResidentStreet1;
+		this.addressResidentStreet2 = addressResidentStreet2;
+		this.addressResidentCity = addressResidentCity;
+		this.addressResidentType = addressResidentType;
+		this.idFamilyDetail = idFamilyDetail;
+		this.motherName = motherName;
+		this.motherNic = motherNic;
+		this.fatherName = fatherName;
+		this.fatherNic = fatherNic;
+	}
 	public int getIdApplication() {
 		return idApplication;
 	}
