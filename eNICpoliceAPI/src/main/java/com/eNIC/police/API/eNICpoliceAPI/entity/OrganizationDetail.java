@@ -2,11 +2,14 @@ package com.eNIC.police.API.eNICpoliceAPI.entity;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,17 +30,20 @@ public class OrganizationDetail {
 	@Column(name="orgcode", nullable = false, length = 20)
 	private String organizationCode;
 	
-	@Column(name="orgusername", nullable = false, length = 150)
-	private String organizationUsername;
-	
-	@Column(name="orgpassword", nullable = false, length = 100)
-	private String organizationPassword;
+	@Column(name="orghead", nullable = false, length = 150)
+	private String organizationHeadName;
 	
 	@Column(name="orgrequesteddate", nullable = false)
 	private Date organizationRequestedDate;
 		
 	@Column(name="orgstatus", nullable = false, length = 8)
 	private String organizationStatus;
+		
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="iduseraccount", nullable = true)
+	private Useraccount idUseraccount;
+
+
 
 	public int getIdOrganization() {
 		return idOrganization;
@@ -70,21 +76,13 @@ public class OrganizationDetail {
 	public void setOrganizationCode(String organizationCode) {
 		this.organizationCode = organizationCode;
 	}
-
-	public String getOrganizationUsername() {
-		return organizationUsername;
+	
+	public String getOrganizationHeadName() {
+		return organizationHeadName;
 	}
 
-	public void setOrganizationUsername(String organizationUsername) {
-		this.organizationUsername = organizationUsername;
-	}
-
-	public String getOrganizationPassword() {
-		return organizationPassword;
-	}
-
-	public void setOrganizationPassword(String organizationPassword) {
-		this.organizationPassword = organizationPassword;
+	public void setOrganizationHeadName(String organizationHeadName) {
+		this.organizationHeadName = organizationHeadName;
 	}
 
 	public Date getOrganizationRequestedDate() {
@@ -103,6 +101,12 @@ public class OrganizationDetail {
 		this.organizationStatus = organizationStatus;
 	}
 
-	
+	public Useraccount getIdUseraccount() {
+		return idUseraccount;
+	}
+
+	public void setIdUseraccount(Useraccount idUseraccount) {
+		this.idUseraccount = idUseraccount;
+	}
 		
 }

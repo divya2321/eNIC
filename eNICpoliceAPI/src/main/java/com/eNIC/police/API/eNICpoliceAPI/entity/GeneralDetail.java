@@ -2,21 +2,24 @@ package com.eNIC.police.API.eNICpoliceAPI.entity;
 
 import java.sql.Date;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="generaldetail")
 public class GeneralDetail {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idgeneraldetail", nullable = false)
 	private int idGeneralDetail;
 	
@@ -47,6 +50,7 @@ public class GeneralDetail {
 	
 	@Column(name="nicstatus")
 	private boolean nicStatus;
+	
 
 	public int getIdGeneralDetail() {
 		return idGeneralDetail;

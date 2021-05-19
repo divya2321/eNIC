@@ -1,5 +1,6 @@
 package com.eNIC.police.API.eNICpoliceAPI.entity;
 
+
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -15,23 +16,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="criminalrecord")
-public class AccessCriminalRecord {
+public class CriminalRecord {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idcriminalrecord", nullable = false)
 	private int idCriminalRecord;
-	
-	@Lob
-	@Column(name="criminalrecord", nullable = false)
+
+	@Column(name="criminalrecord", nullable = false, length = 500)
 	private String criminalRecord;
-	
-	@Lob
-	@Column(name="criminalreport", nullable = false)
+
+	@Column(name="criminalreport", nullable = false, length = 500)
 	private String criminalReport;
-	
-	@Lob
-	@Column(name="criminaldiscription", nullable = false)
+
+	@Column(name="criminaldiscription", nullable = false, length = 500)
 	private String criminalDiscription;
 	
 	@Column(name="recorddate", nullable = false)
@@ -50,29 +48,59 @@ public class AccessCriminalRecord {
 		return idCriminalRecord;
 	}
 
+	public void setIdCriminalRecord(int idCriminalRecord) {
+		this.idCriminalRecord = idCriminalRecord;
+	}
+
 	public String getCriminalRecord() {
 		return criminalRecord;
+	}
+
+	public void setCriminalRecord(String criminalRecord) {
+		this.criminalRecord = criminalRecord;
 	}
 
 	public String getCriminalReport() {
 		return criminalReport;
 	}
 
+	public void setCriminalReport(String criminalReport) {
+		this.criminalReport = criminalReport;
+	}
+
 	public String getCriminalDiscription() {
 		return criminalDiscription;
+	}
+
+	public void setCriminalDiscription(String criminalDiscription) {
+		this.criminalDiscription = criminalDiscription;
 	}
 
 	public Date getRecordDate() {
 		return recordDate;
 	}
 
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
+	}
+
 	public GeneralDetail getIdGeneralDetail() {
 		return idGeneralDetail;
+	}
+
+	public void setIdGeneralDetail(GeneralDetail idGeneralDetail) {
+		this.idGeneralDetail = idGeneralDetail;
 	}
 
 	public Useraccount getIdUseraccount() {
 		return idUseraccount;
 	}
+
+	public void setIdUseraccount(Useraccount idUseraccount) {
+		this.idUseraccount = idUseraccount;
+	}
+
+	
 
 	
 
