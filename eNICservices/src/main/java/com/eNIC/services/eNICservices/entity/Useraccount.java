@@ -1,15 +1,13 @@
 package com.eNIC.services.eNICservices.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,14 +26,7 @@ public class Useraccount {
 	private String accountPassword;
 	
 	@Column(name="createddate", nullable = false)
-	private LocalDateTime createdDate;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idorguser", nullable = true)
-	private OrganizationUser idOrgUser;
-	
-	@Column(name="accountstatus", nullable = false)
-	private boolean accountStatus;
+	private Date createdDate;
 
 	public int getIdUseraccount() {
 		return idUseraccount;
@@ -61,30 +52,13 @@ public class Useraccount {
 		this.accountPassword = accountPassword;
 	}
 
-	public LocalDateTime getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public OrganizationUser getIdOrgUser() {
-		return idOrgUser;
-	}
-
-	public void setIdOrgUser(OrganizationUser idOrgUser) {
-		this.idOrgUser = idOrgUser;
-	}
-
-	public boolean isAccountStatus() {
-		return accountStatus;
-	}
-
-	public void setAccountStatus(boolean accountStatus) {
-		this.accountStatus = accountStatus;
-	}
-	
-	
 
 }

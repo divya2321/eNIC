@@ -1,13 +1,10 @@
 package com.eNIC.services.eNICservices.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +12,7 @@ import javax.persistence.Table;
 public class OrganizationContactDetail {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idorgcontact", nullable = false)
 	private int idOrgContact;
 	
@@ -40,10 +37,7 @@ public class OrganizationContactDetail {
 	@Column(name="orgemailaddress", nullable = true, length = 225)
 	private String orgEmailAddress;
 	
-	@OneToOne(cascade = CascadeType.ALL)	
-	@JoinColumn(name="idorg",  nullable = false)
-	private OrganizationDetail idOrg;
-
+	
 	public int getIdOrgContact() {
 		return idOrgContact;
 	}
@@ -107,15 +101,5 @@ public class OrganizationContactDetail {
 	public void setOrgEmailAddress(String orgEmailAddress) {
 		this.orgEmailAddress = orgEmailAddress;
 	}
-
-	public OrganizationDetail getIdOrg() {
-		return idOrg;
-	}
-
-	public void setIdOrg(OrganizationDetail idOrg) {
-		this.idOrg = idOrg;
-	}
-	
-	
 	
 }

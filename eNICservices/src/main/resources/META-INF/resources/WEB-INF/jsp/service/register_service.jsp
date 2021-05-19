@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 
@@ -24,119 +25,84 @@
 	<div class="navbar bg-dark w3-large">
 
 		<span class="nav-item text-light ">Register Service</span>
-		<button class="btn btn-primary btn-lg" type="submit" form="webserveform1">Next&#62;&#62;</button>
+		<button class="btn btn-primary btn-md" type="submit" form="webserveform1">Register Now</button>
 	</div>
 
 	<br />
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-6 ">
-				<form action="#" id="webserveform1">
+		<form:form action="/drp/org/registerorg" id="webserveform1" modelAttribute="orgModel" method="POST">
+			<div class="row">			
+				<div class="col-sm-6 ">
+				
 					<div class="form-group">
-						<label for="orgtype">Organization type:</label> 
-							<button class="btn btn-secondary dropdown-toggle" 
-								type="button" id="dropdownMenuButton" 
-								data-toggle="dropdown" 
-								aria-haspopup="true" 
-								aria-expanded="false">
-	    							Select a type
-  							</button>
-							  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							    <a class="dropdown-item" href="#">Financial Institution</a>
-							    <a class="dropdown-item" href="#">Criminal Service</a>
-							    <a class="dropdown-item" href="#">Healthcare Service</a>
-							    <a class="dropdown-item" href="#">Police Service</a>
-							    <a class="dropdown-item" href="#">Judicial Service</a>
-							  </div>
+						<form:label path="organizationType">Organization type:</form:label> 
+							<form:select path="organizationType" class="form-control browser-default custom-select" >
+                                    <option value="Financial">Financial Institution</option>
+                                    <option value="Healthcare">Health care Service</option>
+                                    <option value="Police">Police Service</option>
+                                    <option value="Judicial">Judicial Service</option>
+                       		</form:select>
 					</div>
 
 					<div class="form-group">
-						<label for="orgname">Organization name:</label> 
-						<input type="text" class="form-control" id="orgname">
+						<form:label path="organizationName">Organization name:</form:label> 
+						<form:input path="organizationName" type="text" class="form-control" id="orgname"/>
 					</div>
 
 					<div class="form-row">
 						<div class="form-group">
-							<label for="orgcode">Organization code:</label> 
-							<input type="text" class="form-control" id="orgcode">
+							<form:label path="organizationCode">Organization code:</form:label> 
+							<form:input path="organizationCode" type="text" class="form-control" id="orgcode"/>
 						</div>
 					</div>
-
-
+					
 					<div class="form-group">
-						<label for="permanentaddress">Permanent Address</label><br> 
-						<label for="permanentaddress">No:</label> 
-						<input type="text" class="form-control" id="fullname"> 
-						<label for="permanentaddress">Street 1:</label> 
-						<input type="text" class="form-control" id="fullname"> 
-						<label for="permanentaddress">Street 2:</label> 
-						<input type="text" class="form-control" id="fullname"> 
-						<label for="permanentaddress">City:</label> 
-						<input type="text" class="form-control" id="fullname">
+						<form:label path="organizationHead">Organization head:</form:label> 
+						<form:input path="organizationHead" type="text" class="form-control" id="orgname"/>
 					</div>
-
-					<div class="form-row">
-						<div class="form-group">
-							<label for="tpno">Telephone Number:</label> 
-							<input type="tel" class="form-control" id="tpno">
-						</div>
-						&nbsp;&nbsp;&nbsp;
-						<div class="form-group">
-							<label for="mobileno">Mobile Number:</label> 
-							<input type="tel" class="form-control" id="mobileno">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="emailaddress">E-mail Address:</label> 
-						<input type="email" class="form-control" id="emailaddress">
-					</div>
-					</form>
+					
+					
+					
 			</div>
 			
 			<div class="col-sm-6">
+				
 				<div class="form-group">
-					<label for="orghdname">Organization head name:</label> 
-					<input type="text" class="form-control" id="orghdname" form="webserveform1">
-				</div>
-				<div class="form-group">
-					<label for="orghddes">Organization head designation:</label> 
-					<input type="text" class="form-control" id="orghddes" form="webserveform1">
-				</div>
-				<div class="form-group">
-					<label for="permanentaddress">Permanent Address</label><br> 
-					<label for="hdaddressno">No:</label> 
-					<input type="text" class="form-control" id="hdaddressno" form="webserveform1"> 
-					<label for="hdaddressstrt1">Street 1:</label> 
-					<input type="text" class="form-control" id="hdaddressstrt1" form="webserveform1"> 
-					<label for="hdaddressstrt2">Street 2:</label> 
-					<input type="text" class="form-control" id="hdaddressstrt2" form="webserveform1"> 
-					<label for="hdaddrcity">City:</label> 
-					<input type="text" class="form-control" id="hdaddrcity" form="webserveform1">
+					<form:label path="orgAddressNo">Organization Address</form:label><br> 
+					<form:label path="orgAddressNo">No:</form:label> 
+					<form:input path="orgAddressNo" type="text" class="form-control" id="hdaddressno" form="webserveform1"/> 
+					<form:label path="orgAddressStreet1">Street 1:</form:label> 
+					<form:input path="orgAddressStreet1" type="text" class="form-control" id="hdaddressstrt1" form="webserveform1"/> 
+					<form:label path="orgAddressStreet2">Street 2:</form:label> 
+					<form:input path="orgAddressStreet2" type="text" class="form-control" id="hdaddressstrt2" form="webserveform1"/> 
+					<form:label path="orgAddressCity">City:</form:label> 
+					<form:input path="orgAddressCity" type="text" class="form-control" id="hdaddrcity" form="webserveform1"/>
 				</div>
 
 				<div class="form-row">
 					<div class="form-group">
-						<label for="hdtpno">Telephone Number:</label> 
-						<input type="tel" class="form-control" id="hdtpno" form="webserveform1">
+						<form:label path="orgContact1">Telephone Number:</form:label> 
+						<form:input path="orgContact1" type="tel" class="form-control" id="hdtpno" form="webserveform1"/>
 					</div>
 					&nbsp;&nbsp;&nbsp;
 					<div class="form-group">
-						<label for="hdmobileno">Mobile Number:</label>
-						<input type="tel" class="form-control" id="hdmobileno" form="webserveform1">
+						<form:label path="orgContact2">Mobile Number:</form:label>
+						<form:input path="orgContact2" type="tel" class="form-control" id="hdmobileno" form="webserveform1"/>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="hdemailaddress">E-mail Address:</label> 
-					<input type="email" class="form-control" id="hdemailaddress" form="webserveform1">
+					<form:label path="orgEmailAddress">E-mail Address:</form:label> 
+					<form:input path="orgEmailAddress" type="email" class="form-control" id="hdemailaddress" form="webserveform1"/>
 				</div>
 				
 				<br>
 
 
-			</div>
+				</div>
+			
 		</div>
-
+</form:form>
 	</div>
 </body>
 
