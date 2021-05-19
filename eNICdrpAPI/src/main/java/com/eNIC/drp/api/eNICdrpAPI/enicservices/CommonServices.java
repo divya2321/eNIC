@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.transaction.Transactional;
 
@@ -202,7 +201,7 @@ public class CommonServices {
 				generalDetail.setDob(drpCommonEntity.getDob());
 				generalDetail.setGender(drpCommonEntity.getGender());
 				generalDetail.setCivilStatus(drpCommonEntity.getCivilStatus());
-				generalDetail.setRegisteredDate(drpCommonEntity.getRegisteredDate());
+				generalDetail.setRegisteredDate(new Date(System.currentTimeMillis())); // drpCommonEntity.getRegisteredDate()
 				generalDetail.setFingerprint(drpCommonEntity.getFingerprint());
 				generalDetail.setIdIcaoPhoto(savedIcaoPhoto);
 				generalDetail.setIdApplication(savedApplication);

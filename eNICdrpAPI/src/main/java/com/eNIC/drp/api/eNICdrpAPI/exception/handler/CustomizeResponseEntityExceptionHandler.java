@@ -18,21 +18,21 @@ import com.eNIC.drp.api.eNICdrpAPI.exception.ResourceNotSavedException;
 @RestController
 public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-//	@ExceptionHandler(Exception.class)
-//	public final ResponseEntity<ExceptionResponse> handleAllEceptionResponse(Exception ex, WebRequest request){
-//		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-//		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//
-//	@ExceptionHandler(ResourceNotFoundException.class)
-//	public final ResponseEntity<ExceptionResponse> handleNotFoundRequestException(Exception ex, WebRequest request){
-//		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-//		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
-//	}
-//
-//	@ExceptionHandler(ResourceNotSavedException.class)
-//	public final ResponseEntity<ExceptionResponse> handleNotSavedRequestException(Exception ex, WebRequest request){
-//		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-//		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
-//	}
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<ExceptionResponse> handleAllEceptionResponse(Exception ex, WebRequest request){
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public final ResponseEntity<ExceptionResponse> handleNotFoundRequestException(Exception ex, WebRequest request){
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(ResourceNotSavedException.class)
+	public final ResponseEntity<ExceptionResponse> handleNotSavedRequestException(Exception ex, WebRequest request){
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
 }
