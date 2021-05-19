@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class GeneralDetail {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idgeneraldetail", nullable = false)
 	private int idGeneralDetail;
 	
