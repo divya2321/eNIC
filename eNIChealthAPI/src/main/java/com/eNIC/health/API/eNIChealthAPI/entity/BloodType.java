@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class BloodType {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idbloodtype", nullable = false)
 	private int idBloodType;
 	

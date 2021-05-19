@@ -1,5 +1,6 @@
 package com.eNIC.health.API.eNIChealthAPI.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -13,12 +14,18 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="generaldetail")
-public class GeneralDetail {
+public class GeneralDetail implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idgeneraldetail", nullable = false)
 	private int idGeneralDetail;
 	
@@ -42,44 +49,72 @@ public class GeneralDetail {
 	
 	@Column(name="civilstatus", nullable = false, length = 9)
 	private String civilStatus;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idbloodtype", nullable = false)
+	private BloodType idBloodType;
 	
 	@Lob
 	@Column(name="fingerprint", nullable = false)
 	private String fingerprint;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idbloodtype", nullable = true)
-	private BloodType idBloodType;
-	
 	@Column(name="nicstatus")
 	private boolean nicStatus;
-
+	
 	public int getIdGeneralDetail() {
 		return idGeneralDetail;
+	}
+
+	public void setIdGeneralDetail(int idGeneralDetail) {
+		this.idGeneralDetail = idGeneralDetail;
 	}
 
 	public String getNicNo() {
 		return nicNo;
 	}
 
+	public void setNicNo(String nicNo) {
+		this.nicNo = nicNo;
+	}
+
 	public String getFamilyName() {
 		return familyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getSurName() {
 		return surName;
+	}
+
+	public void setSurName(String surName) {
+		this.surName = surName;
 	}
 
 	public Date getDob() {
 		return dob;
 	}
 
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
 	public String getGender() {
 		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getCivilStatus() {
@@ -90,17 +125,27 @@ public class GeneralDetail {
 		this.civilStatus = civilStatus;
 	}
 
+	public BloodType getIdBloodType() {
+		return idBloodType;
+	}
+
+	public void setIdBloodType(BloodType idBloodType) {
+		this.idBloodType = idBloodType;
+	}
+
+	public String getFingerprint() {
+		return fingerprint;
+	}
+
 	public void setFingerprint(String fingerprint) {
 		this.fingerprint = fingerprint;
 	}
 
-	public BloodType getIdBloodType() {
-		return idBloodType;
-	}
-	
-	public boolean getNicStatus() {
+	public boolean isNicStatus() {
 		return nicStatus;
-	}	
-	
-	
+	}
+
+	public void setNicStatus(boolean nicStatus) {
+		this.nicStatus = nicStatus;
+	}
 }

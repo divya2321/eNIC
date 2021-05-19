@@ -1,5 +1,6 @@
 package com.eNIC.health.API.eNIChealthAPI.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -9,45 +10,43 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="healthrecord")
-public class AccessHealthRecord {
+public class HealthRecord implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idhealthrecord", nullable = false)
 	private int idHealthRecord;
-	
-	@Lob
-	@Column(name="healthrecord", nullable = false)
+
+	@Column(name="healthrecord", nullable = false, length = 500)
 	private String healthRecord;
-	
-	@Lob
-	@Column(name="healthreport", nullable = false)
+
+	@Column(name="healthreport", nullable = false, length = 500)
 	private String healthReport;
-	
-	@Lob
-	@Column(name="healthdiscription", nullable = false)
-	private String healthDiscription;
+
+	@Column(name="discription", nullable = false, length = 500)
+	private String discription;
 	
 	@Column(name="recorddate", nullable = false)
 	private Date recordDate;
 	
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idgeneraldetail", nullable = true)
+	@JoinColumn(name="idgeneraldetail", nullable = false)
 	private GeneralDetail idGeneralDetail;	
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="iduseraccount", nullable = true)
+	@JoinColumn(name="iduseraccount", nullable = false)
 	private Useraccount idUseraccount;
-	
-	@Column(name="doctor", nullable = false, length = 150)
-	private String doctor;
 
 	public int getIdHealthRecord() {
 		return idHealthRecord;
@@ -73,12 +72,12 @@ public class AccessHealthRecord {
 		this.healthReport = healthReport;
 	}
 
-	public String getHealthDiscription() {
-		return healthDiscription;
+	public String getDiscription() {
+		return discription;
 	}
 
-	public void setHealthDiscription(String healthDiscription) {
-		this.healthDiscription = healthDiscription;
+	public void setDiscription(String discription) {
+		this.discription = discription;
 	}
 
 	public Date getRecordDate() {
@@ -105,13 +104,10 @@ public class AccessHealthRecord {
 		this.idUseraccount = idUseraccount;
 	}
 
-	public String getDoctor() {
-		return doctor;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-
-	public void setDoctor(String doctor) {
-		this.doctor = doctor;
-	}
+	
 	
 	
 	

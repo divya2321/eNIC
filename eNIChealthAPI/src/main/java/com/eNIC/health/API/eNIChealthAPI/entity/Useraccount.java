@@ -1,21 +1,24 @@
 package com.eNIC.health.API.eNIChealthAPI.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="useraccount")
-public class Useraccount {
+public class Useraccount implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="iduseraccount", nullable = false)
@@ -29,13 +32,7 @@ public class Useraccount {
 	
 	@Column(name="createddate", nullable = false)
 	private LocalDateTime createdDate;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idorguser", nullable = true)
-	private OrganizationUser idOrgUser;
-	
-	@Column(name="accountstatus", nullable = false)
-	private boolean accountStatus;
+
 
 	public int getIdUseraccount() {
 		return idUseraccount;
@@ -69,22 +66,5 @@ public class Useraccount {
 		this.createdDate = createdDate;
 	}
 
-	public OrganizationUser getIdOrgUser() {
-		return idOrgUser;
-	}
-
-	public void setIdOrgUser(OrganizationUser idOrgUser) {
-		this.idOrgUser = idOrgUser;
-	}
-
-	public boolean isAccountStatus() {
-		return accountStatus;
-	}
-
-	public void setAccountStatus(boolean accountStatus) {
-		this.accountStatus = accountStatus;
-	}
-	
-	
 
 }
