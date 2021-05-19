@@ -1,5 +1,7 @@
 package com.eNIC.judicial.API.eNICjudicialAPI.entity;
 
+
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
@@ -9,29 +11,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="criminalrecord")
-public class AccessCriminalRecord {
+public class CriminalRecord implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idcriminalrecord", nullable = false)
 	private int idCriminalRecord;
-	
-	@Lob
-	@Column(name="criminalrecord", nullable = false)
+
+	@Column(name="criminalrecord", nullable = false, length = 500)
 	private String criminalRecord;
-	
-	@Lob
-	@Column(name="criminalreport", nullable = false)
+
+	@Column(name="criminalreport", nullable = false, length = 500)
 	private String criminalReport;
-	
-	@Lob
-	@Column(name="criminaldiscription", nullable = false)
+
+	@Column(name="criminaldiscription", nullable = false, length = 500)
 	private String criminalDiscription;
 	
 	@Column(name="recorddate", nullable = false)
@@ -103,6 +106,7 @@ public class AccessCriminalRecord {
 	}
 
 	
+
 	
 
 }

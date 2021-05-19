@@ -1,5 +1,6 @@
 package com.eNIC.judicial.API.eNICjudicialAPI.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 
@@ -13,10 +14,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="generaldetail")
-public class GeneralDetail {
+public class GeneralDetail implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idgeneraldetail", nullable = false)
 	private int idGeneralDetail;
 	
