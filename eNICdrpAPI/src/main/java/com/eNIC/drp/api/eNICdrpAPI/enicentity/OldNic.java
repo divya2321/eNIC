@@ -27,8 +27,7 @@ public class OldNic implements Serializable {
 	@Column(name="idoldnic", nullable = false)
 	private int idOldNic;
 	
-	@Lob
-	@Column(name="scannedoldnic", nullable = false)
+	@Column(name="scannedoldnic", nullable = false, length = 1000)
 	private String scannedOldNic;
 	
 	@OneToOne(cascade = CascadeType.ALL)

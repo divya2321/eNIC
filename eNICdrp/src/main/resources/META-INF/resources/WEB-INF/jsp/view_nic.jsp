@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -22,17 +23,39 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.1/css/select.bootstrap4.min.css"/>
   <link rel="stylesheet" type="text/css" href="https://editor.datatables.net/extensions/Editor/css/editor.bootstrap4.min.css"/>
   
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  
 <title>All NICs</title>
 
 </head>
 
 <body style="background-color: #FFFFFF">
 	<div class="navbar bg-dark w3-large">
-
 		<span class="nav-item text-light"  style="font-size:20px;">Department for Registration of Persons</span>
 	</div>
 
 	<br />
+	
+	<div  class="ml-3">
+	
+	<div class="input-group">
+		
+			<form action="/drp/view/nic" method="GET">
+			<div class="form-check-inline">
+			
+				<label class="form-label">NIC number:</label> 
+				&nbsp; 
+				<input id="search-focus" name="nic" type="text"  class="form-control" />
+			
+			&nbsp; &nbsp;
+			<button type="submit" class="btn btn-primary"  >
+				<i class="fas fa-search"></i>
+			</button>
+			</div>
+			</form>
+			</div>
+			</div> 
+			 
 	<div class="container-fluid m-4">
 		<div class="row">
 
@@ -44,42 +67,35 @@
 						
 						<thead class="thead-light">
 							<tr>
-								<th>ID</th>
+								<th>Application no</th>
+								<th>Application type</th>
 								<th>NIC</th>
 								<th>Name</th>
 								<th>Gender</th>
 								<th>DoB</th>
 								<th>Applied date</th>
 								<th>Registered date</th>
-								<th>Type</th>
-								<th>View users</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							<tr>
-								<td>01</td>
-								<td>975232760V</td>
-								<td>Divya Nimsara Sandadevini Sitinamaluwa</td>
-								<td>Female</td>
-								<td>23/01/1997</td>
-								<td>18/04/2021</td>
-								<td>06/05/2021</td>
-								<td>New</td>
-								<td><a href="#">View more</a></td>
-							</tr>
-							
-							<tr>
-								<td>02</td>
-								<td>200011202938</td>
-								<td>Nipun Jayasanka Amarakoon</td>
-								<td>Male</td>
-								<td>21/04/2000</td>
-								<td>16/04/2021</td>
-								<td>15/05/2021</td>
-								<td>Renew</td>
-								<td><a href="#">View more</a></td>
-							</tr>
+							<c:forEach items="${drpEntities}" var="drpEntity">
+                                     
+	                                     	<tr>
+	      									  <td> ${drpEntity.applicationNo} </td>
+	      									   <td>	${drpEntity.applicationType}</td>
+	      									  <td> ${drpEntity.nicNo} </td>
+	      									  <td> ${drpEntity.name} </td>
+	      									  <td> ${drpEntity.gender} </td>
+	      									  <td> ${drpEntity.dob}</td>
+	      									  <td>	${drpEntity.recievedDate}</td>
+	      									  <td>	${drpEntity.registeredDate}</td>
+	      								
+												
+	      							
+	      									   									  
+	      									</tr> 
+   							</c:forEach>
 						</tbody>
 					</table>
 

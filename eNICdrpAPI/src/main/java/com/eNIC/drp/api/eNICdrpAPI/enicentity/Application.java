@@ -33,12 +33,12 @@ public class Application implements Serializable {
 	@Column(name="applicationtype", nullable = false, length = 5)
 	private String applicationType;
 	
-	@Lob
-	@Column(name="scannedapplication", nullable = false)
+
+	@Column(name="scannedapplication", nullable = false, length = 1000)
 	private String scannedApplication;
 	
-	@Lob
-	@Column(name="scannedgramaniladharicertificate", nullable = false)
+	
+	@Column(name="scannedgramaniladharicertificate", nullable = false, length = 1000)
 	private String scannedGramaNiladhariCertificate;
 	
 	@Column(name="recieveddate", nullable = false)

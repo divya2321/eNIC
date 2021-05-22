@@ -51,9 +51,8 @@ public class GeneralDetail implements Serializable {
 	
 	@Column(name="registereddate", nullable = false)
 	private Date registeredDate;
-	
-	@Lob
-	@Column(name="fingerprint", nullable = false)
+
+	@Column(name="fingerprint", nullable = false, length = 1000)
 	private String fingerprint;
 	
 	@OneToOne(cascade = CascadeType.ALL)

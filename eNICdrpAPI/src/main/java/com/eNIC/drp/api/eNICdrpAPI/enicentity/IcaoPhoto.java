@@ -24,8 +24,7 @@ public class IcaoPhoto implements Serializable {
 	@Column(name="idicaophoto", nullable = false)
 	private int idIcaoPhoto;
 	
-	@Lob
-	@Column(name="icaophoto", nullable = false)
+	@Column(name="icaophoto", nullable = false,length = 1000)
 	private String icaoPhoto;
 
 	public int getIdIcaoPhoto() {

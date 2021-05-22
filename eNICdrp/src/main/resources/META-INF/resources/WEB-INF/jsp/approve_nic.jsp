@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 
@@ -7,6 +8,9 @@
 
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type='text/javascript' src='/array.generics.min.js'></script>
+    <script type='text/javascript' src='/jquery.min.js'></script>
+     <script type="text/JavaScript" src='/BiominiWebAgent.js'></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -15,7 +19,8 @@
 
 </head>
 
-<body style="background-color:#FFFFFF">
+<body style="background-color:#FFFFFF" onload="InitPage();Init();"
+      onbeforeunload="DeletePage()">
    <div class="navbar bg-dark w3-large" >
             
             <span class="nav-item text-light" style="font-size:20px;">
@@ -25,155 +30,240 @@ Department for Registration of Persons</span>
    <br/>
  <div class="container-fluid" >
  
-   	<div class="row">
-	  	<div class="col-sm-10">
-	  		<div class="row">
-	  			<div class="col-sm-2">
-	  				<button class="btn btn-primary font-weight-bold">&lt;&lt; Previous</button>
-	  			</div>
-	  			<div class="col-sm-6 d-flex justify-content-center">
-	  				<span>Renew application</span>
-	  			</div>
-	  			<div class="col-sm-2 d-flex justify-content-end ml-5">
-	  				<button class="btn btn-primary font-weight-bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next &gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-	  			</div>
-	  		</div>
-	  	</div>
-	  	<div class="col-sm-2 "></div>  
-	</div> 
-
-<br/>
 
 	<div class="container-fluid">
 	<div class="row">
-	  	<div class="col-sm-10 ">
+	 <form:form action="/drp/register/process" modelAttribute="drpEntity" method="POST">
+	 <div class="row">
+	  	<div class="col-sm-10">
 	  		<div class="row">
-	  			<div class="col-sm-7">
+	  			<div class="col-sm-6">
 	  				
-	  				 <form action="#" id="nicregform">
-					 	<div class="form-group">
-					    	<label for="nicno">NIC number:</label>
-					    	<input type="text" class="form-control" id="nicno" readonly>
+	  				
+	  				 <div class="form-check-inline">
+	  				 	<div class="form-group">
+					    	<form:label path="applicationNo">Application no:</form:label>
+					    	<form:input path="applicationNo" type="text" class="form-control" />
 					  	</div>
 					  	
 					  	<div class="form-group">
-					    	<label for="fullname">Full name:</label>
-					    	<input type="text" class="form-control" id="fullname" readonly>
+						    	<form:label path="recievedDate">Receive date:</form:label>
+						    	<form:input path="recievedDate" type="date" class="form-control"  />
+					  		</div>
+					  	
+	  				 <div class="form-group">
+						<form:label path="applicationType">Application type:</form:label> 
+							<form:select path="applicationType" class="form-control browser-default custom-select" >
+                                    <option value="New">New</option>
+                                    <option value="Renew">Renew</option>
+                                    <option value="lost">Lost</option>
+                       		</form:select>
+					</div>
+	  				 </div>
+	  				 
+					  	<div class="form-group">
+					    	<form:label path="familyName">Familyname:</form:label>
+					    	<form:input path="familyName" type="text" class="form-control" />
 					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="name">Full name:</form:label>
+					    	<form:input path="name" type="text" class="form-control" />
+					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="surName">Surname:</form:label>
+					    	<form:input path="surName" type="text" class="form-control" />
+					  	</div>
+					  	
 					  	
 					  	<div class="form-row">
 					  		<div class="form-group">
-						    	<label for="dob">Date of Birth:</label>
-						    	<input type="date" class="form-control" id="dob" readonly>
+						    	<form:label path="dob">Date of Birth:</form:label>
+						    	<form:input path="dob" type="date" class="form-control"  />
 					  		</div>
-					  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  		&nbsp;&nbsp;&nbsp;&nbsp;
 					  		<div class="form-group">
-						    	<label for="gender">Gender:</label>
-						    	<br>
-						    	<label for="orgtype">Civil Status:</label> 
-							<button class="btn btn-secondary dropdown-toggle" 
-								type="button" id="dropdownMenuButton" 
-								data-toggle="dropdown" 
-								aria-haspopup="true" 
-								aria-expanded="false">
-	    							Select a type
-  							</button>
-							  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							    <a class="dropdown-item" href="#">Unmarried</a>
-							    <a class="dropdown-item" href="#">Married</a>
-							    <a class="dropdown-item" href="#">Divorced</a>
-							    <a class="dropdown-item" href="#">Widowed</a>
-							  </div>
+						    	
+						        	<form:label path="civilStatus">Civil Status:</form:label> 
+						
+							<form:select path="civilStatus" class="form-control browser-default custom-select" >
+                                    <option value="Unmarried">Unmarried</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                    <option value="Widowed">Widowed</option>
+                       		</form:select>
 					  		<br>
+					  		<br>
+					  		<form:label path="gender">Gender:</form:label>
 						    	<div class="form-check-inline">
-									  <label class="form-check-label">
-									  	<input type="radio" class="form-check-input" name="optradio" readonly>Female
-									  </label>
+									  <form:label path="gender" class="form-check-label"></form:label>
 								</div>
 								<div class="form-check-inline">
-									 <label class="form-check-label">
-									    <input type="radio" class="form-check-input" name="optradio" readonly>Male
-									  </label>
+									    <form:radiobutton path="gender" class="form-check-input" value="Male"/>Male
 								</div>
 								<div class="form-check-inline">
-									 <label class="form-check-label">
-									    <input type="radio" class="form-check-input" name="optradio" readonly>Other
-									  </label>
+									    <form:radiobutton path="gender" class="form-check-input" value="Male"/>Female
+								</div>
+								<div class="form-check-inline">
+									    <form:radiobutton path="gender" lass="form-check-input" value="Other" />Other
 								</div>
 					  		</div>
 					  	</div>
 					  	
 				
 					  	<div class="form-group">
-					    	<label for="permanentaddress">Permanent Address:</label>
-					    	<textarea rows="5" class="form-control" id="permanentaddress" readonly></textarea>
+					    	<form:label path="addressPermanentNo">Permanent address no:</form:label>
+					    	<form:input path="addressPermanentNo" type="text" class="form-control"  />
 					  	</div>
 					  	
 					  	<div class="form-group">
-					    	<label for="postaladdress">Postal Address:</label>
-					    	<textarea rows="5" class="form-control" id="postaladdress" readonly></textarea>
+					    	<form:label path="addressPermanentStreet1">Permanent address street1:</form:label>
+					    	<form:input path="addressPermanentStreet1" type="text" class="form-control"/>
+					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="addressPermanentStreet2">Permanent address street2:</form:label>
+					    	<form:input path="addressPermanentStreet2" type="text" class="form-control" />
+					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="addressPermanentCity">Permanent address city:</form:label>
+					    	<form:input path="addressPermanentCity" type="text" class="form-control" />
+					  	</div>
+					  	
+					  			<div class="form-group">
+					    	<form:label path="addressResidentNo">Resident address no:</form:label>
+					    	<form:input path="addressResidentNo" type="text" class="form-control"  />
+					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="addressResidentStreet1">Resident address street1:</form:label>
+					    	<form:input path="addressResidentStreet1" type="text" class="form-control" />
+					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="addressResidentStreet2">Resident address street2:</form:label>
+					    	<form:input path="addressResidentStreet2" type="text" class="form-control" />
+					  	</div>
+					  	
+					  	<div class="form-group">
+					    	<form:label path="addressResidentCity">Resident address city:</form:label>
+					    	<form:input path="addressResidentCity" type="text" class="form-control" />
 					  	</div>
 					  	
 					  	<div class="form-row">
 					  		<div class="form-group">
-						    	<label for="homeno">Resident Number:</label>
-						    	<input type="tel" class="form-control" id="homeno" readonly>
+						    	<form:label path="residentNo">Resident Number:</form:label>
+						    	<form:input path="residentNo" type="tel" class="form-control" />
 					  		</div>
 					  		&nbsp;&nbsp;&nbsp;
 					  		<div class="form-group">
-						    	<label for="mobileno">Mobile Number:</label>
-						    	<input type="tel" class="form-control" id="mobileno" readonly>
+						    	<form:label path="mobileNo">Mobile Number:</form:label>
+						    	<form:input path="mobileNo" type="tel" class="form-control"  />
 					  		</div>
 					  	</div>
 					  	
 					  	<div class="form-group">
-					    	<label for="emailaddress">E-mail Address:</label>
-					    	<input type="email" class="form-control" id="emailaddress" readonly>
+					    	<form:label path="emailAddress">E-mail Address:</form:label>
+					    	<form:input path="emailAddress" type="email" class="form-control" />
 					  	</div>
 					  	
 					  	<div class="form-group">
-					    	<label for="mothname">Mother's name:</label>
-					    	<input type="text" class="form-control" id="mothname" readonly>
+					    	<form:label path="motherName">Mother's name:</form:label>
+					    	<form:input path="motherName"  type="text" class="form-control" />
 					  	</div>
 					  	<div class="form-group">
-					    	<label for="momnicno">Mother'sNIC number:</label>
-					    	<input type="text" class="form-control" id="momnicno" readonly>
+					    	<form:label path="motherNic">Mother'sNIC number:</form:label>
+					    	<form:input  path="motherNic" type="text" class="form-control" />
 					  	</div>
 					  	<div class="form-group">
-					    	<label for="fathname">Father's name:</label>
-					    	<input type="text" class="form-control" id="fathname" readonly>
+					    	<form:label path="fatherName">Father's name:</form:label>
+					    	<form:input path="fatherName" type="text" class="form-control"/>
 					  	</div>
 					  	<div class="form-group">
-					    	<label for="fathnicno">Father's NIC number:</label>
-					    	<input type="text" class="form-control" id="fathnicno" readonly>
+					    	<form:label path="fatherNic">Father's NIC number:</form:label>
+					    	<form:input path="fatherNic" type="text" class="form-control"/>
 					  	</div>
 					 	
-					</form> 
+					
 	  				
 	  			</div>
-	  			<div class="col-sm-3 container d-flex justify-content-center"  >
+	  			<div class="col-sm-4 container d-flex justify-content-center"  >
 	  				<div >
-	  				 <img src="imgtest.JPG" class="img-thumbnail" width="200px" alt="Cinque Terre"> 
-	  				 <br><br>
-	  				  <div class="list-group">
-						  <a href="#" class="list-group-item list-group-item-action">Application Form</a>
-						  <a href="#" class="list-group-item list-group-item-action">Grama Niladhari Form</a>
-						  <a href="#" class="list-group-item list-group-item-action">Other Form</a>
-					  </div> 
-					  </div>
+	  				
+					
+					  
+					  <div class="form-group">
+					  
+					    	<form:label path="icaoPhoto">Person's image:</form:label>
+					    	<form:input path="icaoPhoto" type="text" class="form-control"/>
+					  	</div>
+					 
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="scannedApplication">Application Form:</form:label>
+					    	<form:input path="scannedApplication"  type="text" class="form-control"  />
+					  	</div>
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="scannedGramaNiladhariCertificate">Grama Niladhari certificate:</form:label>
+					    	<form:input path="scannedGramaNiladhariCertificate"  type="text" class="form-control" />
+					  	</div>
+					  	
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="oldNicNo">Old Nic:</form:label>
+					    	<form:input path="oldNicNo"  type="text" class="form-control"/>
+					  	</div>
+					  
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="scannedOldNic">Old Nic scanned:</form:label>
+					    	<form:input path="scannedOldNic"  type="text" class="form-control" />
+					  	</div>
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="comment">Old Nic comment:</form:label>
+					    	<form:textarea path="comment" class="form-control" ></form:textarea>
+					  	</div>
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="scannedPoliceReport">Police report:</form:label>
+					    	<form:input path="scannedPoliceReport"  type="text" class="form-control" />
+					  	</div>
+					  	
+					  	 <div class="form-group">
+					    	<form:label path="fingerprint">Fingerprint:</form:label>
+					    	<form:textarea path="fingerprint" class="form-control" id="fingerprintTemp"></form:textarea>
+					  	</div>
+					  	
+					  	  </div>
+	  			</div>
+	  			
+	  			<div class="col-sm-2 ">
+	  			
+                                <label>FingerPrint Live Image</label>
+                                <button  onclick="StartCapture()" type="button" style="width:120px;height:30px;">Start Capture</button>
+                                <p>
+                                    <img id="Fpimg" width="160" height="200" />
+                                </p>
+                                     <button id="Bt_Extract" type="button" onclick="GetTemplateData()" style="width:140px;height:30px;">Get Template Data</button>
+                          <textarea id="Tb_DisplayLog" style="width:320px;height:250px;" ></textarea>
 	  			</div>
 	  		</div>
 	  	</div>
 	  	<div class="col-sm-2 ">
+	  	<div class="row">
 	  	<br>
 	  	<br>
-	  	<button type="submit" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Reject&nbsp;&nbsp;&nbsp;</button>
+	  
 	  	<br>
-	  	<br>
-	  	<br>
-	  	<br>
-	  	<button type="submit" class="btn btn-primary" form="nicregform">&nbsp;Approve&nbsp;</button>
+	  	<button type="submit" class="btn btn-primary">&nbsp;Approve&nbsp;</button>
+	  	</div>
+	  	</div>
 	  	</div>  
+	  </form:form> 	
 	</div> 
 	</div>
 </div> 

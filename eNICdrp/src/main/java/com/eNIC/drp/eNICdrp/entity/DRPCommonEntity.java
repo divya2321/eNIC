@@ -1,4 +1,4 @@
-package com.eNIC.drp.api.eNICdrpAPI.enicentity;
+package com.eNIC.drp.eNICdrp.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -31,8 +31,6 @@ public class DRPCommonEntity implements Serializable {
 	private String applicationType;
 	private String scannedApplication;
 	private String scannedGramaNiladhariCertificate;
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date recievedDate;
 	
 	//oldnic
@@ -50,25 +48,16 @@ public class DRPCommonEntity implements Serializable {
 	private String familyName;
 	private String name;
 	private String surName;
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dob;
-	
 	private String gender;
 	private String civilStatus;
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date registeredDate;
-	
 	private String fingerprint;
 	private boolean nicStatus;
 	
 	//generaldetailold
 	private int idGeneralDetailOld;
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date expiredDate;
-	
 	private String   comment;
 	
 	//icaophoto

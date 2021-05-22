@@ -28,8 +28,7 @@ public class PoliceReport implements Serializable {
 	@Column(name="idpolicereport", nullable = false)
 	private int idPoliceReport;
 	
-	@Lob
-	@Column(name="scannedpolicereport", nullable = false)
+	@Column(name="scannedpolicereport", nullable = false, length = 1000)
 	private String scannedPoliceReport;
 	
 	@OneToOne(cascade = CascadeType.ALL)

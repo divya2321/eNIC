@@ -106,7 +106,10 @@ public class CommonServices {
 				String newFirstHalf = NICAlgo.NICAlgoMethod(dobtext, drpCommonEntity.getGender());
 				System.out.println("This is new first Half:"+newFirstHalf);
 				
+				
 				GeneralDetail foundOldNic = generalDetailRepository.findByOneNicNo(drpCommonEntity.getOldNicNo().trim());
+				System.out.println("Before");
+				System.out.println(foundOldNic.getNicNo());
 				String oldFirstHalf = foundOldNic.getNicNo().substring(0, 7);
 				System.out.println("This is oldFirstHalf"+oldFirstHalf);
 							
@@ -231,7 +234,7 @@ public class CommonServices {
 						addressDetail.setAddressStreet1(drpCommonEntity.getAddressPermanentStreet1());
 						addressDetail.setAddressStreet2(drpCommonEntity.getAddressPermanentStreet2());
 						addressDetail.setAddressCity(drpCommonEntity.getAddressPermanentCity());
-						addressDetail.setAddressType(drpCommonEntity.getAddressPermanentType());
+						addressDetail.setAddressType("permanent");
 						addressDetail.setIdGeneralDetail(savedGeneralDetail);
 						savedAddressDetail = addressDetailRepository.save(addressDetail);
 						drpCommonEntity.setIdAddressPermanentDetail(savedAddressDetail.getIdAddressDetail());
@@ -243,7 +246,7 @@ public class CommonServices {
 						addressDetail.setAddressStreet1(drpCommonEntity.getAddressResidentStreet1());
 						addressDetail.setAddressStreet2(drpCommonEntity.getAddressResidentStreet2());
 						addressDetail.setAddressCity(drpCommonEntity.getAddressResidentCity());
-						addressDetail.setAddressType(drpCommonEntity.getAddressResidentType());
+						addressDetail.setAddressType("resident");
 						addressDetail.setIdGeneralDetail(savedGeneralDetail);
 						savedResAddressDetail = addressDetailRepository.save(addressDetail);
 						drpCommonEntity.setIdAddressResidentDetail(savedResAddressDetail.getIdAddressDetail());
