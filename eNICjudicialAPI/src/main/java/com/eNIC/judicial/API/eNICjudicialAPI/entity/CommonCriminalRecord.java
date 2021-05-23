@@ -3,10 +3,15 @@ package com.eNIC.judicial.API.eNICjudicialAPI.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonPropertyOrder({"idCriminalRecord", "criminalRecord", "criminalReport", "criminalDiscription", "recordDate", 
 					"idGeneralDetail", "nicNo", "idUseraccount", "username","orgName"})
+@JsonInclude(Include.NON_NULL)
 public class CommonCriminalRecord implements Serializable {
 
 	
@@ -15,11 +20,15 @@ public class CommonCriminalRecord implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	private int idCriminalRecord;
 	private String criminalRecord;
 	private String criminalReport;
 	private String criminalDiscription;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date recordDate;
+	
 	private GeneralDetail idGeneralDetail;
 	private String nicNo;
 	private Useraccount idUseraccount;

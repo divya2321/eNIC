@@ -15,8 +15,6 @@ public interface GeneralDetailRepository extends JpaRepository<GeneralDetail, In
 	@Query("SELECT gdp FROM GeneralDetail gdp WHERE gdp.nicNo = :nicNo") 
 	public List<GeneralDetail> findPersonAll(String nicNo);
 	
-	@Query("SELECT gdp FROM GeneralDetail gdp where gdp.fingerprint = :fingerprint") 
-	public GeneralDetail findByFingerprint(String fingerprint);
 	
 	@Query("SELECT gdp FROM GeneralDetail gdp WHERE gdp.fingerprint = :fingerprint") 
 	public List<GeneralDetail> findPersonFinAll(String fingerprint);

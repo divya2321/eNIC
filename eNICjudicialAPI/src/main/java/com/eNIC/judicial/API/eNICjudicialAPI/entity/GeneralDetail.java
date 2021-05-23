@@ -16,6 +16,8 @@ import javax.persistence.Table;
 @Table(name="generaldetail")
 public class GeneralDetail implements Serializable {
 
+	
+
 	/**
 	 * 
 	 */
@@ -47,8 +49,7 @@ public class GeneralDetail implements Serializable {
 	@Column(name="civilstatus", nullable = false, length = 9)
 	private String civilStatus;
 	
-	@Lob
-	@Column(name="fingerprint", nullable = false)
+	@Column(name="fingerprint", nullable = false, length = 1000)
 	private String fingerprint;
 	
 	@Column(name="nicstatus")
@@ -92,6 +93,10 @@ public class GeneralDetail implements Serializable {
 
 	public void setFingerprint(String fingerprint) {
 		this.fingerprint = fingerprint;
+	}
+	
+	public String getFingerprint() {
+		return fingerprint;
 	}
 	
 	public boolean getNicStatus() {

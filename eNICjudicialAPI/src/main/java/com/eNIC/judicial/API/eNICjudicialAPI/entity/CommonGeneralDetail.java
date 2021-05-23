@@ -1,26 +1,50 @@
 package com.eNIC.judicial.API.eNICjudicialAPI.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
-public class CommonGeneralDetail {
 
-	//generaldetail
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonPropertyOrder({"idGeneralDetail", "nicNo", "familyName", "name", "surName", "dob", "gender","fingerprint", "civilStatus", "nicStatus", 
+	"idContactDetail", "residentNo", "mobileNo", "emailAddress", 
+	"idAddressPermanentDetail", "addressPermanentNo", "addressPermanentStreet1", "addressPermanentStreet2", "addressPermanentCity", "addressPermanentType", 
+	"idAddressResidentDetail", "addressResidentNo", "addressResidentStreet1", "addressResidentStreet2", "addressResidentCity", "addressResidentType", 
+	"idFamilyDetail", "motherName", "motherNic", "fatherName", "fatherNic"})
+@JsonInclude(Include.NON_NULL)
+public class CommonGeneralDetail implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		//generaldetail
+		@JsonIgnore
 		private int idGeneralDetail;
 		private String nicNo;
 		private String familyName;
 		private String name;
 		private String surName;
+		
+		@JsonFormat(pattern="yyyy-MM-dd")
 		private Date dob;
+		
 		private String gender;
 		private String civilStatus;
 		
-		
 		//contactdetail
+		@JsonIgnore
 		private int idContactDetail;
 		private String residentNo;
 		private String mobileNo;
 		private String emailAddress;
-		
+		private String fingerprint;
+	
 		//permanentaddressdetail
+		@JsonIgnore
 		private int idAddressPermanentDetail;
 		private String addressPermanentNo;
 		private String addressPermanentStreet1;
@@ -29,6 +53,7 @@ public class CommonGeneralDetail {
 		private String addressPermanentType;
 		
 		//residentaddressdetail
+		@JsonIgnore
 		private int idAddressResidentDetail;
 		private String addressResidentNo;
 		private String addressResidentStreet1;
@@ -37,6 +62,7 @@ public class CommonGeneralDetail {
 		private String addressResidentType;
 		
 		//familydetail
+		@JsonIgnore
 		private int idFamilyDetail;
 		private String motherName;
 		private String motherNic;
@@ -217,7 +243,12 @@ public class CommonGeneralDetail {
 			this.fatherNic = fatherNic;
 		}
 		
-		
+		public String getFingerprint() {
+			return fingerprint;
+		}
+		public void setFingerprint(String fingerprint) {
+			this.fingerprint = fingerprint;
+		}
 		
 	
 }

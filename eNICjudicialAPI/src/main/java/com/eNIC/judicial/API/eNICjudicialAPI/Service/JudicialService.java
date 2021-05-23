@@ -55,6 +55,8 @@ public class JudicialService {
 	@Autowired
 	OrgRepository orgRepository;
 
+	
+	//save criminal record
 	@Transactional
 	public CommonCriminalRecord saveCriminalRecord(CommonCriminalRecord ccr) {
 		
@@ -64,7 +66,7 @@ public class JudicialService {
 		Useraccount useraccount = userAccRepository.findByUsername(ccr.getUsername());
 		System.out.println(useraccount);
 		
-		if (!(generalDetail ==  null || useraccount == null)) {
+		if (generalDetail !=  null) {
 			System.out.println("###################################################");
 			CriminalRecord criminalRecord = new CriminalRecord();
 			criminalRecord.setIdCriminalRecord(0);
@@ -84,16 +86,17 @@ public class JudicialService {
 			ccr.setRecordDate(savedCriminalRecord.getRecordDate());
 			
 		}else {
-			throw new ResourceNotFoundException("Either the General detail or User acount you provided is incorrect");
+			throw new ResourceNotFoundException("There is no such a person you have searched.");
 		}
-		
-		
-		
 		return ccr;
 	}
 	
+	
+	
+	
 	@Transactional
-	public Map<String, Object> viewCriminalRecords(String detail, String  type) {
+	public Map<String, Object> viewCriminalRecords(String nicNo) {
+		
 		
 		HashMap<String, Object> results = new HashMap<String, Object>();
 		GeneralDetail activeGeneralDetail = null;
@@ -101,24 +104,12 @@ public class JudicialService {
 		
 		List<GeneralDetail> searchedGd = null;
 		int gdId = 0;
-		switch (type.toLowerCase()) {
-		case "nicno":
+		
+			searchedGd = generalDetailRepository.findPersonAll(nicNo);	
+			activeGeneralDetail = generalDetailRepository.findByNic(nicNo);
+		
+	
 			
-			System.out.println("Switched");
-			searchedGd = generalDetailRepository.findPersonAll(detail);	
-			activeGeneralDetail = generalDetailRepository.findByNic(detail);
-			break;
-			
-		case "fingerprint":	
-			
-
-			searchedGd = generalDetailRepository.findPersonFinAll(detail);	
-			activeGeneralDetail = generalDetailRepository.findByFingerprint(detail);
-			break;
-			
-		default:
-			break;
-		}
 		
 		if (!searchedGd.isEmpty()) {
 			
@@ -147,18 +138,14 @@ public class JudicialService {
 						
 						ccrs.add(ccr);
 					}
-				}else {
-					
-//					throw new DFileNotFoundException("There are no criminal history for this person");
 				}
 				
 			}
 			
-			
-		 
 		}else {
-//			throw new ResourceNotFoundException("There are no searched general details for the data you provided");
+			throw new ResourceNotFoundException("There are no searched person with the NIC number");
 		}
+		
 		
 		CommonGeneralDetail cgd = new CommonGeneralDetail();
 	
@@ -175,6 +162,7 @@ public class JudicialService {
 			cgd.setDob(activeGeneralDetail.getDob());
 			cgd.setGender(activeGeneralDetail.getGender());
 			cgd.setCivilStatus(activeGeneralDetail.getCivilStatus());
+			cgd.setFingerprint(activeGeneralDetail.getFingerprint());
 			
 			cgd.setIdContactDetail(contactDetail.getIdContactDetail());
 			cgd.setResidentNo(contactDetail.getResidentNo());
@@ -208,9 +196,9 @@ public class JudicialService {
 		
 		results.put("Crimes", ccrs);
 		results.put("Generals", cgd);
-	System.out.println(ccrs.get(0).getRecordDate());
-	ArrayList<CommonCriminalRecord> cast = (ArrayList<CommonCriminalRecord>) results.get("Crimes");
-	System.out.println(cast.get(0).getRecordDate());
 		return results;
 	}
+	
+
+	
 }

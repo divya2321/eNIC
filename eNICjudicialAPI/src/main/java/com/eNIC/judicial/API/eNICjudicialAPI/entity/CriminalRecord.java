@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name="criminalrecord")
 public class CriminalRecord implements Serializable {
@@ -34,7 +36,7 @@ public class CriminalRecord implements Serializable {
 	@Column(name="criminalreport", nullable = false, length = 500)
 	private String criminalReport;
 
-	@Column(name="criminaldiscription", nullable = false, length = 500)
+	@Column(name="criminaldiscription", nullable = true, length = 500)
 	private String criminalDiscription;
 	
 	@Column(name="recorddate", nullable = false)
