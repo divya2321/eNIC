@@ -20,6 +20,8 @@ import com.eNIC.health.API.eNIChealthAPI.entity.GeneralDetail;
 import com.eNIC.health.API.eNIChealthAPI.entity.HealthRecord;
 import com.eNIC.health.API.eNIChealthAPI.entity.OrganizationDetail;
 import com.eNIC.health.API.eNIChealthAPI.entity.Useraccount;
+import com.eNIC.health.API.eNIChealthAPI.exception.DFileNotFoundException;
+import com.eNIC.health.API.eNIChealthAPI.exception.ResourceNotFoundException;
 import com.eNIC.health.API.eNIChealthAPI.repository.AddressDetailRepository;
 import com.eNIC.health.API.eNIChealthAPI.repository.BloodTypeRepository;
 import com.eNIC.health.API.eNIChealthAPI.repository.ContactDetailRepository;
@@ -61,7 +63,7 @@ public class HealthService {
 		Useraccount useraccount = userAccRepository.findByUsername(chr.getUsername());
 		System.out.println(useraccount);
 		
-		if (!(generalDetail ==  null || useraccount == null)) {
+		if (generalDetail !=  null) {
 			HealthRecord healthRecord = new HealthRecord();
 			healthRecord.setIdHealthRecord(0);
 			healthRecord.setHealthRecord(chr.getHealthRecord());
@@ -80,29 +82,37 @@ public class HealthService {
 			chr.setUsername(null);
 			
 		}else {
-//			throw new ResourceNotFoundException("Either the General detail or User account you provided is incorrect");
+			throw new ResourceNotFoundException("No person found");
 		}
 		
 		return chr;
 	}
 	
 	@Transactional
-	public BloodType saveBloodType(String nicNo, String bloodType) {
-		System.out.println(nicNo+":::::::::::::::"+bloodType);
-		GeneralDetail generalDetail = generalDetailRepository.findByNic(nicNo);	
-		System.out.println(generalDetail.getIdGeneralDetail());
-		BloodType relType = bloodTypeRepository.getBloodType(bloodType);
+	public CommonHealthRecord saveBloodType(CommonHealthRecord commonHealthRecord) {
+		System.out.println(":::::::::::::::");
+		GeneralDetail generalDetail = generalDetailRepository.findByNic(commonHealthRecord.getNicNo());	
+		if (generalDetail == null) {
+			throw new DFileNotFoundException("No person found");
+		}
+		BloodType relType = bloodTypeRepository.getBloodType(commonHealthRecord.getBloodType());
+		if (relType == null) {
+			throw new DFileNotFoundException("Check the formtof the bllood type: O+, O- etc");
+		}
 		System.out.println(relType.getBloodType());
 		generalDetail.setIdGeneralDetail(generalDetail.getIdGeneralDetail());
 		generalDetail.setIdBloodType(relType);
-		generalDetailRepository.save(generalDetail);
+		GeneralDetail savedBlood =  generalDetailRepository.save(generalDetail);
+		
+		commonHealthRecord.setIdGeneralDetail(generalDetail);
+		commonHealthRecord.setBloodType(savedBlood.getIdBloodType().getBloodType());
 				
-		return relType;
+		return commonHealthRecord;
 	}
 	
 	
 	@Transactional
-	public Map<String, Object> viewHealthRecords(String detail, String  type) {
+	public Map<String, Object> viewHealthRecords(String nicNo) {
 		
 		HashMap<String, Object> results = new HashMap<String, Object>();
 		GeneralDetail activeGeneralDetail = null;
@@ -110,24 +120,9 @@ public class HealthService {
 		
 		List<GeneralDetail> searchedGd = null;
 		int gdId = 0;
-		switch (type.toLowerCase()) {
-		case "nicno":
-			
-			System.out.println("Switched");
-			searchedGd = generalDetailRepository.findPersonAll(detail);	
-			activeGeneralDetail = generalDetailRepository.findByNic(detail);
-			break;
-			
-		case "fingerprint":	
-			
-
-			searchedGd = generalDetailRepository.findPersonFinAll(detail);	
-			activeGeneralDetail = generalDetailRepository.findByFingerprint(detail);
-			break;
-			
-		default:
-			break;
-		}
+	
+			searchedGd = generalDetailRepository.findPersonAll(nicNo);	
+			activeGeneralDetail = generalDetailRepository.findByNic(nicNo);
 		
 		if (!searchedGd.isEmpty()) {
 			
@@ -155,9 +150,6 @@ public class HealthService {
 						
 						ccrs.add(ccr);
 					}
-				}else {
-					
-//					throw new DFileNotFoundException("There are no criminal history for this person");
 				}
 				
 			}
@@ -165,7 +157,7 @@ public class HealthService {
 			
 		 
 		}else {
-//			throw new ResourceNotFoundException("There are no searched general details for the data you provided");
+			throw new ResourceNotFoundException("No person found");
 		}
 		
 		CommonGeneralDetail cgd = new CommonGeneralDetail();
@@ -182,6 +174,7 @@ public class HealthService {
 			cgd.setDob(activeGeneralDetail.getDob());
 			cgd.setGender(activeGeneralDetail.getGender());
 			cgd.setCivilStatus(activeGeneralDetail.getCivilStatus());
+			cgd.setFingerprint(activeGeneralDetail.getFingerprint());
 			
 			
 			cgd.setIdContactDetail(contactDetail.getIdContactDetail());
@@ -208,7 +201,11 @@ public class HealthService {
 			}
 					
 			
+		}else {
+			
+			throw new ResourceNotFoundException("No active person found");
 		}
+		
 		
 		BloodType relBtp = bloodTypeRepository.getPersonBloodType(gdId);
 		if (relBtp != null) {

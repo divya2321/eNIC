@@ -1,20 +1,18 @@
-package com.eNIC.health.API.eNIChealthAPI.entity;
+package com.eNIC.health.eNIChealth.entity;
 
 import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonPropertyOrder({"idGeneralDetail", "nicNo", "familyName", "name", "surName", "dob", "gender","fingerprint", "civilStatus", "nicStatus", 
+@JsonPropertyOrder({"idGeneralDetail", "nicNo", "familyName", "name", "surName", "dob", "gender", "civilStatus", "nicStatus", 
 	"idContactDetail", "residentNo", "mobileNo", "emailAddress", 
 	"idAddressPermanentDetail", "addressPermanentNo", "addressPermanentStreet1", "addressPermanentStreet2", "addressPermanentCity", "addressPermanentType", 
 	"idAddressResidentDetail", "addressResidentNo", "addressResidentStreet1", "addressResidentStreet2", "addressResidentCity", "addressResidentType"})
 @JsonInclude(Include.NON_NULL)
 public class CommonGeneralDetail {
-
 
 	//generaldetail
 	@JsonIgnore
@@ -23,13 +21,9 @@ public class CommonGeneralDetail {
 		private String familyName;
 		private String name;
 		private String surName;
-		
-		@JsonFormat(pattern="yyyy-MM-dd")
 		private Date dob;
-		
 		private String gender;
 		private String civilStatus;
-		private String fingerprint;
 		
 		
 		//contactdetail
@@ -219,12 +213,7 @@ public class CommonGeneralDetail {
 			this.bloodType = bloodType;
 		}
 		
-		public String getFingerprint() {
-			return fingerprint;
-		}
-		public void setFingerprint(String fingerprint) {
-			this.fingerprint = fingerprint;
-		}
+		
 		
 	
 }

@@ -14,6 +14,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="generaldetail")
@@ -27,6 +29,7 @@ public class GeneralDetail implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idgeneraldetail", nullable = false)
+	@JsonIgnore
 	private int idGeneralDetail;
 	
 	@Column(name="nicno", nullable = false, length = 12)
@@ -54,11 +57,12 @@ public class GeneralDetail implements Serializable {
 	@JoinColumn(name="idbloodtype", nullable = false)
 	private BloodType idBloodType;
 	
-	@Lob
-	@Column(name="fingerprint", nullable = false)
+	@JsonIgnore
+	@Column(name="fingerprint", nullable = false, length = 1000)
 	private String fingerprint;
 	
 	@Column(name="nicstatus")
+	@JsonIgnore
 	private boolean nicStatus;
 	
 	public int getIdGeneralDetail() {

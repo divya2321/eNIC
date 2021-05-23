@@ -1,9 +1,8 @@
-package com.eNIC.health.API.eNIChealthAPI.entity;
+package com.eNIC.health.eNIChealth.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,26 +24,12 @@ public class CommonHealthRecord implements Serializable {
 	private String healthRecord;
 	private String healthReport;
 	private String discription;
-	
-	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date recordDate;
-	
 	private String nicNo;
-	private Useraccount idUseraccount;
 	private String username;
 	private String orgName;
-	private GeneralDetail idGeneralDetail;
-	@JsonIgnore
-	private BloodType idBloodType;
 	private String bloodType;
-	
- 
-	public BloodType getIdBloodType() {
-		return idBloodType;
-	}
-	public void setIdBloodType(BloodType idBloodType) {
-		this.idBloodType = idBloodType;
-	}
+
 	public int getIdHealthRecord() {
 		return idHealthRecord;
 	}
@@ -81,12 +66,6 @@ public class CommonHealthRecord implements Serializable {
 	public void setNicNo(String nicNo) {
 		this.nicNo = nicNo;
 	}
-	public Useraccount getIdUseraccount() {
-		return idUseraccount;
-	}
-	public void setIdUseraccount(Useraccount idUseraccount) {
-		this.idUseraccount = idUseraccount;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -98,12 +77,6 @@ public class CommonHealthRecord implements Serializable {
 	}
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
-	}
-	public GeneralDetail getIdGeneralDetail() {
-		return idGeneralDetail;
-	}
-	public void setIdGeneralDetail(GeneralDetail idGeneralDetail) {
-		this.idGeneralDetail = idGeneralDetail;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
