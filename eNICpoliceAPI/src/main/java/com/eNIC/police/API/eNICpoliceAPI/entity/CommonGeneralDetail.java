@@ -1,9 +1,22 @@
 package com.eNIC.police.API.eNICpoliceAPI.entity;
 
 import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonPropertyOrder({"idGeneralDetail", "nicNo", "familyName", "name", "surName", "dob", "gender", "fingerprint", "civilStatus", "nicStatus", 
+	"idContactDetail", "residentNo", "mobileNo", "emailAddress", 
+	"idAddressPermanentDetail", "addressPermanentNo", "addressPermanentStreet1", "addressPermanentStreet2", "addressPermanentCity", "addressPermanentType", 
+	"idAddressResidentDetail", "addressResidentNo", "addressResidentStreet1", "addressResidentStreet2", "addressResidentCity", "addressResidentType", 
+	"idFamilyDetail", "motherName", "motherNic", "fatherName", "fatherNic"})
+@JsonInclude(Include.NON_NULL)
 public class CommonGeneralDetail {
 
 	//generaldetail
+		@JsonIgnore
 		private int idGeneralDetail;
 		private String nicNo;
 		private String familyName;
@@ -15,20 +28,25 @@ public class CommonGeneralDetail {
 		
 		
 		//contactdetail
+		@JsonIgnore
 		private int idContactDetail;
 		private String residentNo;
 		private String mobileNo;
 		private String emailAddress;
 		
 		//permanentaddressdetail
+		@JsonIgnore
 		private int idAddressPermanentDetail;
 		private String addressPermanentNo;
 		private String addressPermanentStreet1;
 		private String addressPermanentStreet2;
 		private String addressPermanentCity;
 		private String addressPermanentType;
+		private String fingerprint;
+		
 		
 		//residentaddressdetail
+		@JsonIgnore
 		private int idAddressResidentDetail;
 		private String addressResidentNo;
 		private String addressResidentStreet1;
@@ -37,6 +55,7 @@ public class CommonGeneralDetail {
 		private String addressResidentType;
 		
 		//familydetail
+		@JsonIgnore
 		private int idFamilyDetail;
 		private String motherName;
 		private String motherNic;
@@ -217,7 +236,12 @@ public class CommonGeneralDetail {
 			this.fatherNic = fatherNic;
 		}
 		
-		
+		public String getFingerprint() {
+			return fingerprint;
+		}
+		public void setFingerprint(String fingerprint) {
+			this.fingerprint = fingerprint;
+		}
 		
 	
 }

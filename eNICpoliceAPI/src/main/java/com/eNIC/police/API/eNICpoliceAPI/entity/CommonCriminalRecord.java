@@ -2,12 +2,15 @@ package com.eNIC.police.API.eNICpoliceAPI.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonPropertyOrder({ "idCriminalRecord", "criminalRecord", "criminalReport", "criminalDiscription", "recordDate",
-		"idGeneralDetail", "nicNo", "idUseraccount", "username", "orgName" })
+@JsonPropertyOrder({"idCriminalRecord", "criminalRecord", "criminalReport", "criminalDiscription", "recordDate", 
+	"idGeneralDetail", "nicNo", "idUseraccount", "username","orgName"})
+@JsonInclude(Include.NON_NULL)
 public class CommonCriminalRecord implements Serializable {
 
 	/**
@@ -15,6 +18,7 @@ public class CommonCriminalRecord implements Serializable {
 	*/
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	private int idCriminalRecord;
 	private String criminalRecord;
 	private String criminalReport;

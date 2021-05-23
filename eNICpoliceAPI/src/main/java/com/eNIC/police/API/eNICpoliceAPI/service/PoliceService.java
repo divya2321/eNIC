@@ -25,6 +25,8 @@ import com.eNIC.police.API.eNICpoliceAPI.entity.CriminalRecord;
 import com.eNIC.police.API.eNICpoliceAPI.entity.FamilyDetail;
 import com.eNIC.police.API.eNICpoliceAPI.entity.GeneralDetail;
 import com.eNIC.police.API.eNICpoliceAPI.entity.OrganizationDetail;
+import com.eNIC.police.API.eNICpoliceAPI.entity.Useraccount;
+import com.eNIC.police.API.eNICpoliceAPI.exception.ResourceNotFoundException;
 
 
 @Service
@@ -52,7 +54,7 @@ public class PoliceService {
 	OrgRepository orgRepository;
 
 	@Transactional
-	public Map<String, Object> viewCriminalRecords(String detail, String  type) {
+	public Map<String, Object> viewCriminalRecords(String nicNo) {
 		
 		HashMap<String, Object> results = new HashMap<String, Object>();
 		GeneralDetail activeGeneralDetail = null;
@@ -60,24 +62,10 @@ public class PoliceService {
 		
 		List<GeneralDetail> searchedGd = null;
 		int gdId = 0;
-		switch (type.toLowerCase()) {
-		case "nicno":
-			
-			System.out.println("Switched");
-			searchedGd = generalDetailRepository.findPersonAll(detail);	
-			activeGeneralDetail = generalDetailRepository.findByNic(detail);
-			break;
-			
-		case "fingerprint":	
-			
+		
+			searchedGd = generalDetailRepository.findPersonAll(nicNo);	
+			activeGeneralDetail = generalDetailRepository.findByNic(nicNo);
 
-			searchedGd = generalDetailRepository.findPersonFinAll(detail);	
-			activeGeneralDetail = generalDetailRepository.findByFingerprint(detail);
-			break;
-			
-		default:
-			break;
-		}
 		
 		if (!searchedGd.isEmpty()) {
 			
@@ -105,9 +93,6 @@ public class PoliceService {
 						
 						ccrs.add(ccr);
 					}
-				}else {
-					
-//					throw new DFileNotFoundException("There are no criminal history for this person");
 				}
 				
 			}
@@ -115,7 +100,7 @@ public class PoliceService {
 			
 		 
 		}else {
-//			throw new ResourceNotFoundException("There are no searched general details for the data you provided");
+			throw new ResourceNotFoundException("There are no searched general details for the data you provided");
 		}
 		
 		CommonGeneralDetail cgd = new CommonGeneralDetail();
@@ -133,6 +118,7 @@ public class PoliceService {
 			cgd.setDob(activeGeneralDetail.getDob());
 			cgd.setGender(activeGeneralDetail.getGender());
 			cgd.setCivilStatus(activeGeneralDetail.getCivilStatus());
+			cgd.setFingerprint(activeGeneralDetail.getFingerprint());
 			
 			cgd.setIdContactDetail(contactDetail.getIdContactDetail());
 			cgd.setResidentNo(contactDetail.getResidentNo());
@@ -162,6 +148,10 @@ public class PoliceService {
 			cgd.setMotherName(familyDetail.getMotherName());
 			cgd.setFatherNic(familyDetail.getFatherNic());
 			cgd.setFatherName(familyDetail.getFatherName());
+		}else {
+			
+			throw new ResourceNotFoundException("There is no prson under the provided detail.");
+			
 		}
 		
 		results.put("Crimes", ccrs);
@@ -169,4 +159,7 @@ public class PoliceService {
 	
 		return results;
 	}
+	
+	
+
 }

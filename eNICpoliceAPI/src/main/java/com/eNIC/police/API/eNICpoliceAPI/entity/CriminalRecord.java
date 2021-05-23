@@ -29,7 +29,7 @@ public class CriminalRecord {
 	@Column(name="criminalreport", nullable = false, length = 500)
 	private String criminalReport;
 
-	@Column(name="criminaldiscription", nullable = false, length = 500)
+	@Column(name="criminaldiscription", nullable = true, length = 500)
 	private String criminalDiscription;
 	
 	@Column(name="recorddate", nullable = false)

@@ -44,8 +44,7 @@ public class GeneralDetail {
 	@Column(name="civilstatus", nullable = false, length = 9)
 	private String civilStatus;
 	
-	@Lob
-	@Column(name="fingerprint", nullable = false)
+	@Column(name="fingerprint", nullable = false, length = 1000)
 	private String fingerprint;
 	
 	@Column(name="nicstatus")
@@ -95,6 +94,11 @@ public class GeneralDetail {
 	public boolean getNicStatus() {
 		return nicStatus;
 	}	
+	
+	public String getFingerprint() {
+		return fingerprint;
+	}
+
 	
 	
 }
