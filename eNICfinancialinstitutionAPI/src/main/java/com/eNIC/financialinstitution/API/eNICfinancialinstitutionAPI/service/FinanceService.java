@@ -1,11 +1,6 @@
 package com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.service;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -16,11 +11,14 @@ import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.Addr
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.CommonGeneralDetail;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.ContactDetail;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.GeneralDetail;
+import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.OrganizationDetail;
+import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.Useraccount;
+import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.exception.ResourceNotFoundException;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.AddressDetailRepository;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.ContactDetailRepository;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.GeneralDetailRepository;
-
-
+import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.OrgRepository;
+import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.UserAccountRepository;
 
 
 @Service
@@ -34,35 +32,32 @@ public class FinanceService {
 	
 	@Autowired
 	ContactDetailRepository contactDetailRepository;
+	
+	@Autowired
+	UserAccountRepository userAccRepository;
+	
+	@Autowired
+	OrgRepository orgRepository;
 
 	@Transactional
-	public CommonGeneralDetail getGeneralDetail(String detail, String type) {
+	public CommonGeneralDetail getGeneralDetail(String nicNo) {
 		
 		CommonGeneralDetail commonGeneralDetail = new CommonGeneralDetail();
 		GeneralDetail generalDetail =null;
-		
-		switch (type.toLowerCase()) {
-		case "nicno":
-			generalDetail = generalDetailRepository.findByNic(detail);
-			break;
-			
-		case "fingerprint":
-			generalDetail = generalDetailRepository.findByFingerprint(detail);			
-			break;
-
-		default:
-			break;
-		}
-		
+	
+			generalDetail = generalDetailRepository.findByNic(nicNo);
+	
 		
 		if (generalDetail != null) {
 			
 			commonGeneralDetail.setNicNo(generalDetail.getNicNo());
+			commonGeneralDetail.setName(generalDetail.getName());
 			commonGeneralDetail.setFamilyName(generalDetail.getFamilyName());
 			commonGeneralDetail.setSurName(generalDetail.getSurName());
 			commonGeneralDetail.setDob(generalDetail.getDob());
 			commonGeneralDetail.setGender(generalDetail.getGender());
 			commonGeneralDetail.setCivilStatus(generalDetail.getCivilStatus());
+			commonGeneralDetail.setFingerprint(generalDetail.getFingerprint());
 			
 			List<AddressDetail> addressDetails = addressDetailRepository.getAddresses(generalDetail.getIdGeneralDetail());
 			ContactDetail contactDetail = contactDetailRepository.getContact(generalDetail.getIdGeneralDetail());
@@ -77,7 +72,6 @@ public class FinanceService {
 					commonGeneralDetail.setAddressPermanentStreet1(addressDetail.getAddressStreet1());
 					commonGeneralDetail.setAddressPermanentStreet2(addressDetail.getAddressStreet2());
 					commonGeneralDetail.setAddressPermanentCity(addressDetail.getAddressCity());
-					commonGeneralDetail.setAddressPermanentType(addressDetail.getAddressType());
 					break;
 					
 				case "resident":
@@ -85,7 +79,6 @@ public class FinanceService {
 					commonGeneralDetail.setAddressResidentStreet1(addressDetail.getAddressStreet1());
 					commonGeneralDetail.setAddressResidentStreet2(addressDetail.getAddressStreet2());
 					commonGeneralDetail.setAddressResidentCity(addressDetail.getAddressCity());
-					commonGeneralDetail.setAddressResidentType(addressDetail.getAddressType());
 					break;
 
 				default:
@@ -96,9 +89,14 @@ public class FinanceService {
 				commonGeneralDetail.setMobileNo(contactDetail.getMobileNo());
 				commonGeneralDetail.setEmailAddress(contactDetail.getEmailAddress());
 			}
+		}else {
+			throw new ResourceNotFoundException("There is no person for the requested detail");
 		}
 		
 			return commonGeneralDetail;
 	}
+	
+	
+
 	
 }

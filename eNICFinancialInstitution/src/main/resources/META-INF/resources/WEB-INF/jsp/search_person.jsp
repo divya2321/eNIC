@@ -29,39 +29,22 @@
 	<div class="container">
 		<div class="row">
 
-			<form action="#">
+			<form action="/finance/fill/form/process">
 				<br> <span>Person one:</span> <br>
-				<div class="form-row">
+			
 					<div class="form-group">
 						<label for="nic">NIC number:</label> <br> <input type="text"
-							class="form-control" id="nic">
+							class="form-control" name="nic1">
 					</div>
-					&nbsp;&nbsp;&nbsp; <span class="pt-5"> OR</span> &nbsp;&nbsp;&nbsp;
-
-					<div class="form-group">
-						<label for="fringerprint">Fingerprint:</label> <br> <input
-							type="text" class="form-control" id="fringerprint">
-					</div>
-				</div>
-
-				<span>Person two:</span> <br>
-				<div class="form-row">
+				<br> <span>Person two:</span> <br>
 					<div class="form-group">
 						<label for="nic">NIC number:</label> <br> <input type="text"
-							class="form-control" id="nic">
+							class="form-control" name="nic2">
 					</div>
-					&nbsp;&nbsp;&nbsp; <span class="pt-5"> OR</span> &nbsp;&nbsp;&nbsp;
-
-
-					<div class="form-group">
-						<label for="fringerprint">Fingerprint:</label> <br> <input
-							type="text" class="form-control" id="fringerprint">
-					</div>
-				</div>
-
+				
 				<div class="row-inline ">
 					<br>
-					<button type="submit" class="btn btn-primary">&nbsp;Search&nbsp;</button>
+					<button type="submit" class="btn btn-primary">&nbsp;Fill Form&nbsp;</button>
 				</div>
 			</form>
 		</div>

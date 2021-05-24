@@ -1,4 +1,4 @@
-package com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity;
+package com.eNIC.FinancialInstitution.eNICFinancialInstitution.entity;
 
 import java.sql.Date;
 
