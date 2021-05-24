@@ -1,0 +1,31 @@
+package com.eNIC.police.API.eNICpoliceAPI;
+
+import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.eNIC.police.API.eNICpoliceAPI.Controller.PoliceAPIController;
+import com.eNIC.police.API.eNICpoliceAPI.entity.CommonGeneralDetail;
+
+@SpringBootTest
+class ENiCpoliceApiApplicationTests {
+
+	
+	@Autowired
+	private PoliceAPIController policeAPIController;
+	
+
+	@Test
+	void getPersonCrimesTest() {
+		
+		Map<String, Object> response=	policeAPIController.getPersonCrimes("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQb2xLYWRhd3d3bnciLCJleHAiOjE2Mzk3OTcyMTQsImlhdCI6MTYyMTc5NzIxNH0.YW8as_pdA1nTBocqfdNRv10UnFXBgmfsCmhTH4KJXdOnSG9GHzq3l_kfw-T9CIdm4RFH1WZYyV7n8EjAL5tX4w","199752300001");
+		CommonGeneralDetail g =  (CommonGeneralDetail) response.get("Generals");
+		Assert.assertEquals("199752300001", g.getNicNo());
+	}
+	
+
+
+}
