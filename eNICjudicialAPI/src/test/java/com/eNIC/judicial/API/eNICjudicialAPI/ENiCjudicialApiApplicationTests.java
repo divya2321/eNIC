@@ -42,7 +42,7 @@ class ENiCjudicialApiApplicationTests {
 	@Test
 	void getPersonCrimesTest() {
 		
-		Map<String, Object> response=	judicialAPIController.getPersonCrimes("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKdWRHT1Z0eTZUeSIsImV4cCI6MTYzOTc2MTM0MywiaWF0IjoxNjIxNzYxMzQzfQ.CXumezce9RivyJO4OGq5hZc0utFs78UmGt3flyrUjLlH8mcn5Hx7bZIs7wN1iNeSSwCbHfsQNLB_Ifyu1hQ9iA","199752300001");
+		Map<String, Object> response=	judicialAPIController.getPersonCrimes("199752300001");
 		CommonGeneralDetail g =  (CommonGeneralDetail) response.get("Generals");
 		Assert.assertEquals("199752300001", g.getNicNo());
 	}

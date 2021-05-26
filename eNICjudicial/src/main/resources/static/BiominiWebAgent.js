@@ -830,10 +830,13 @@
 		
 		var templateData = document.getElementById("Tb_Template").value;
 		var templateLength = document.getElementById("Tb_Template").value.length;
-	
-	
+		
+		if (cb_EncryptOpt) {
+		    txt_EncryptKey = document.getElementById("Txt_EncKey").value;
+		}
+		else {
 		    txt_EncryptKey = "";
-	
+		}
 
 		jQuery.ajax({
             type : "GET",
@@ -847,7 +850,7 @@
 				encrypt: cb_EncryptOpt,
 				encryptKey: txt_EncryptKey,
 				extractEx: cb_ExtractExMode,
-				qualityLevel: '1'
+				qualityLevel: document.getElementById("DDb_QltyLv").value
             },
             success : function(msg) {
                 AppendLog("verifyTemplate", msg.retString);

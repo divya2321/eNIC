@@ -27,7 +27,7 @@
 	<div class="container">
 	  		<div class="row">	
 	  					
-	  				  <form:form action="/judicial/add/record/process" modelAttribute="criminalEntity" method="POST" enctype="multipart/form-data">
+	  				  <form:form action="/judicial/add/record/process" modelAttribute="criminalEntity" method="POST" >
 	  				 
 	  				 <br>  	
 	  				<div class="form-row">
@@ -58,7 +58,6 @@
 	  						<br>
 						  	<br>
 		<button type="submit" class="btn btn-primary float-right m-2">&nbsp;Upload&nbsp;</button>
-	  	<button type="button" class="btn btn-danger float-right m-2">&nbsp;&nbsp;&nbsp;Cancel&nbsp;&nbsp;&nbsp;</button>
 	  
 	  	</div> 
 					</form:form> 

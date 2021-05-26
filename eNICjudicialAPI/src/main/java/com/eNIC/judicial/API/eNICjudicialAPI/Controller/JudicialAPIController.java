@@ -60,8 +60,7 @@ public class JudicialAPIController {
 	// view criminal record by NIC
 	@ApiOperation(value = "Search criminal record by NIC number")
 	@GetMapping(value = "/viewbynic", produces = { "application/json", "application/xml" })
-	public Map<String, Object> getPersonCrimes(@RequestHeader(value = "Authorization") String authorization,
-			@RequestParam("nicno") String nicno) {
+	public Map<String, Object> getPersonCrimes(@RequestParam("nicno") String nicno) {
 		
 
 			Map<String, Object> searchedCrimes = judService.viewCriminalRecords(nicno);
