@@ -22,7 +22,7 @@ import com.eNIC.police.eNICpolice.service.PoliceService;
 public class PoliceController {
 
 	@Autowired
-	PoliceService policeService;
+	private PoliceService policeService;
 	
 	
 	

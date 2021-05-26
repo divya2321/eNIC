@@ -2,6 +2,7 @@ package com.eNIC.police.API.eNICpoliceAPI.entity;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -22,7 +23,10 @@ public class CommonGeneralDetail {
 		private String familyName;
 		private String name;
 		private String surName;
+		
+		@JsonFormat(pattern="yyyy-MM-dd")
 		private Date dob;
+		
 		private String gender;
 		private String civilStatus;
 		

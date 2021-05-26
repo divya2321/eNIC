@@ -3,6 +3,7 @@ package com.eNIC.police.API.eNICpoliceAPI.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,7 +24,10 @@ public class CommonCriminalRecord implements Serializable {
 	private String criminalRecord;
 	private String criminalReport;
 	private String criminalDiscription;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date recordDate;
+	
 	private GeneralDetail idGeneralDetail;
 	private String nicNo;
 	private Useraccount idUseraccount;
