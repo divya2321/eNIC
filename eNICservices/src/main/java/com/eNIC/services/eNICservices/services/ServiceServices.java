@@ -3,6 +3,8 @@ package com.eNIC.services.eNICservices.services;
 import java.sql.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,11 +34,28 @@ public class ServiceServices {
 	private OrgContactRepository orgContactRepository;
 	
 	@Autowired
-	private UserAccRepository orgAccRepository;
+	private UserAccRepository userAccRepository;
 		
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 	
+	@Autowired
+	private OrgRepository findAllOrgRep;
+	
+	@Autowired
+	private OrgRepository changeStatusRepo;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@Autowired
+	private JwtUserDetailsService userDetailsService;
+	
+	
+	@Transactional
 	public CommonService registerService(CommonService recOrgDetail) {
 					
 
@@ -75,8 +94,7 @@ public class ServiceServices {
 	}
 	
 	
-	@Autowired
-	OrgRepository findAllOrgRep;
+	
 	
 	public List<OrganizationDetail> getAllServices(){
 		
@@ -87,19 +105,7 @@ public class ServiceServices {
 	}
 	
 	
-	@Autowired
-	OrgRepository changeStatusRepo;
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
-
-	@Autowired
-	private JwtUserDetailsService userDetailsService;
-	
-	
+	@Transactional
 	public OrganizationDetail updateStatus(int oid, String ostatus) throws Exception {
 		
 		System.out.println("AAAAAAAAAAAAAAAAAA"+oid+" "+ostatus);
@@ -112,7 +118,7 @@ public class ServiceServices {
 		userAccount.setAccountUsername(username);
 		userAccount.setAccountPassword(bcryptEncoder.encode(password));
 		userAccount.setCreatedDate(new Date(System.currentTimeMillis()));
-		Useraccount savedUserAcc =  orgAccRepository.save(userAccount);
+		Useraccount savedUserAcc =  userAccRepository.save(userAccount);
 		
 		OrganizationDetail updateOrg = changeStatusRepo.findByOrgId(oid);
 		updateOrg.setIdOrganization(oid);
@@ -149,5 +155,52 @@ public class ServiceServices {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		
 		}
+	}
+
+
+	public String validateAccount(Useraccount userAcc) {
+		
+		Useraccount uacc = userAccRepository.findByUsername(userAcc.getAccountUsername());
+		String endPoint = null;
+		
+		if (uacc != null) {
+			if (bcryptEncoder.matches(userAcc.getAccountPassword(), uacc.getAccountPassword())) {
+				OrganizationDetail orgDetail = orgRepository.findByUserAccId(uacc.getIdUseraccount());
+				if (orgDetail.getOrganizationStatus().equalsIgnoreCase("Approved")) {
+					String orgType = orgDetail.getOrganizationType().toLowerCase();
+					
+					switch (orgType) {
+					case "police":
+						endPoint = "Police end point";
+						break;
+						
+					case "judicial":
+						endPoint = "Judicial end point";
+						break;
+						
+					case "financial":
+						endPoint = "Financial end point";
+						break;
+						
+					case "healthcare":
+						endPoint = "Healthcare end point";
+						break;
+
+					default:
+						break;
+					}
+
+				} else {
+					System.out.println("Do not have access to login");
+				}
+			}else {
+				System.out.println("The entered password is wrong");
+			}
+			
+		} else {
+			System.out.println("Username incorrect");
+		}
+		
+		return endPoint;
 	}
 }

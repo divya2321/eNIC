@@ -13,5 +13,6 @@ public interface UserAccRepository extends JpaRepository<Useraccount, Integer> {
 	@Query("SELECT uacc FROM Useraccount uacc where uacc.idUseraccount = :idUseraccount") 
 	public java.util.List<Useraccount> findByOrgId(Useraccount idUseraccount);
 
-	
+	@Query("SELECT uacc FROM Useraccount uacc where uacc.accountUsername = :accountUsername") 
+	public Useraccount findByUsername(String accountUsername);
 }

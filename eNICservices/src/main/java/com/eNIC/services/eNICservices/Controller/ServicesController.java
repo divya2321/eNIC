@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.eNIC.services.eNICservices.entity.CommonService;
+import com.eNIC.services.eNICservices.entity.Useraccount;
+import com.eNIC.services.eNICservices.orgRepository.UserAccountRepository;
 import com.eNIC.services.eNICservices.services.ServiceServices;
 
 @Controller
@@ -17,6 +19,9 @@ public class ServicesController {
 
 	@Autowired
 	private ServiceServices serviceServ;
+	
+	@Autowired
+	private UserAccountRepository userAccountRepository;
 	
 	@PostMapping(value = "/registerorg")
 	public String registerOrganization(@ModelAttribute("orgModel") CommonService orgDetail)throws Exception {
@@ -40,9 +45,25 @@ public class ServicesController {
 	@GetMapping(value = "/login")
 	public String viewLogin(Model model) {
 		
+		Useraccount useraccount = new Useraccount();
+		model.addAttribute("accModel", useraccount);
+		
 		return "service/login";
 		
 	}
 	
+	@GetMapping(value = "/validatelogin")
+	public void validateUseraccount(@ModelAttribute("accModel") Useraccount userAcc)throws Exception {
+		
+		System.out.println(userAcc.getAccountUsername());
+		System.out.println(userAcc.getAccountPassword());
+		
+//		String endPoint = serviceServ.validateAccount(userAcc);
+//		
+//		if (endPoint != null) {
+//			System.out.println(endPoint);
+//		}
+//		return "redirect:/drp/org/login";
+	} 
 	
 }

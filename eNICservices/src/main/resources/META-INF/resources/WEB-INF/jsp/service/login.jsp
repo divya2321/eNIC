@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,17 +173,17 @@ fieldset{
 			<div class="middle">
 				<div id="login">
 
-					<form action="loginservlet" method="POST">
+					<form:form action="/drp/org/validatelogin" id="accform1"  modelAttribute="accModel" method="GET">
 
 						<fieldset class="clearfix">
 
 							<p>
-								<span class="fa fa-user"></span><input type="text"
-									name="username" Placeholder="Username" required>
+								<span class="fa fa-user"></span>
+								<form:input path="accountUsername" type="text" Placeholder="Username" />
 							</p>
 							<p>
-								<span class="fa fa-lock"></span><input type="password"
-									name="password" Placeholder="Password" required>
+								<span class="fa fa-lock"></span>
+								<form:input path="accountPassword" type="password" Placeholder="Password" />
 							</p>
 
 							<div>
@@ -196,7 +198,7 @@ fieldset{
 
 						</fieldset>
 						<div class="clearfix"></div>
-					</form>
+					</form:form>
 
 					<div class="clearfix"></div>
 
