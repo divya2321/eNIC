@@ -15,7 +15,7 @@ import com.eNIC.health.API.eNIChealthAPI.entity.CommonHealthRecord;
 class ENiChealthApiApplicationTests {
 
 	@Autowired
-	HealthAPIController healthAPIController;
+	private HealthAPIController healthAPIController;
 	
 	
 	
