@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,17 +18,21 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.eNIC.drp.eNICdrp.entity.DRPCommonEntity;
+import com.eNIC.drp.eNICdrp.entity.JwtResponse;
+import com.eNIC.drp.eNICdrp.entity.UserAccount;
 
 @Service
 public class DRPService {
 
+	@Value("${user.token}")
+	private String token;
 	
 	public  ResponseEntity<DRPCommonEntity> saveNic(DRPCommonEntity dRPCommonEntity) {
 		final String uri = "http://localhost:8081/api/drp/registerperson";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Authorization", "Bearer "+"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcnAyMTIzIiwiZXhwIjoxNjIxNzMxMTQ1LCJpYXQiOjE2MjE3MTMxNDV9.VwgFEaOYGEmjGMr3Q0-3XiAVsWizExfzH2lj9k-l4Nnbj8xa4X-e8MRxJ-_p-Q3PPGjEL9uoR0fFCD8gAN5fEw");
+		headers.set("Authorization", token);
 
 		HttpEntity<Object> entity = new HttpEntity<Object>(dRPCommonEntity,headers);
 	    
@@ -43,7 +48,7 @@ public class DRPService {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Authorization", "Bearer "+"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcnAyMTIzIiwiZXhwIjoxNjIxNzMxMTQ1LCJpYXQiOjE2MjE3MTMxNDV9.VwgFEaOYGEmjGMr3Q0-3XiAVsWizExfzH2lj9k-l4Nnbj8xa4X-e8MRxJ-_p-Q3PPGjEL9uoR0fFCD8gAN5fEw");
+		headers.set("Authorization", token);
 
 		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
 	    
@@ -61,7 +66,7 @@ public class DRPService {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Authorization", "Bearer "+"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcnAyMTIzIiwiZXhwIjoxNjIxNzMxMTQ1LCJpYXQiOjE2MjE3MTMxNDV9.VwgFEaOYGEmjGMr3Q0-3XiAVsWizExfzH2lj9k-l4Nnbj8xa4X-e8MRxJ-_p-Q3PPGjEL9uoR0fFCD8gAN5fEw");
+		headers.set("Authorization", token);
 
 		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
 		
@@ -73,6 +78,23 @@ public class DRPService {
 	    
 	    return theDRPCommonEntities;
 	}
+	
+	public  String createUseraccount(UserAccount useraccount) throws RestClientException, URISyntaxException {
+		final String uri = "http://localhost:8081/register";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.set("Authorization", token);
+
+		HttpEntity<Object> entity = new HttpEntity<Object>(useraccount,headers);
+	    
+		 RestTemplate restTemplate = new RestTemplate();
+
+		 ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+	    
+	    return response.getBody();
+	}
+	
 	
 	
 	

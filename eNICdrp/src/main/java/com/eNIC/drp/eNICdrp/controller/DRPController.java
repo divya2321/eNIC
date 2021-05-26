@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientException;
 
 import com.eNIC.drp.eNICdrp.entity.DRPCommonEntity;
+import com.eNIC.drp.eNICdrp.entity.UserAccount;
 import com.eNIC.drp.eNICdrp.service.DRPService;
 @Controller
 @RequestMapping("/drp")
@@ -61,9 +62,29 @@ public class DRPController {
 		return "view_nic";
 	}
 	
-	@GetMapping("/fingerprint")
-	public String viewFp() {
-		return "index";
+	@GetMapping("/create/useraccount")
+	public String viewCreateUserAccount(Model model) {
+		
+		UserAccount useraccountEntity = new UserAccount();
+		
+		model.addAttribute("useraccountEntity",useraccountEntity);
+		
+		return "create_useraccount";
 	}
+	
+	@PostMapping(value = "/create/useraccount/process")
+	public String processCreateUserAccount(@ModelAttribute("userAccountEntity") UserAccount userAccount, Model model)throws Exception {
+		
+		 	String theResponse =  drpService.createUseraccount(userAccount);
+		 	
+		 	UserAccount useraccountEntity = new UserAccount();
+			model.addAttribute("useraccountEntity",useraccountEntity);
+			
+			model.addAttribute("token", theResponse);
+			
+			return "create_useraccount";
+	
+	
+	} 
 	
 }

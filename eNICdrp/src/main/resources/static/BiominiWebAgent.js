@@ -831,7 +831,8 @@
 		var templateData = document.getElementById("Tb_Template").value;
 		var templateLength = document.getElementById("Tb_Template").value.length;
 		
-		if (cb_EncryptOpt) {
+		
+		  if (cb_EncryptOpt) {
 		    txt_EncryptKey = document.getElementById("Txt_EncKey").value;
 		}
 		else {
@@ -856,6 +857,7 @@
                 AppendLog("verifyTemplate", msg.retString);
                 if(msg.retValue == 0) {
                     AppendLogData("Result of verifyTemplate : " + msg.retVerify);
+                    alert(msg.retVerify);
                 }
             },
             error : function(request, status, error) {
