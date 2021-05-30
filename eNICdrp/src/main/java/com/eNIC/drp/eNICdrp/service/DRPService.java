@@ -1,24 +1,17 @@
 package com.eNIC.drp.eNICdrp.service;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 import com.eNIC.drp.eNICdrp.entity.DRPCommonEntity;
-import com.eNIC.drp.eNICdrp.entity.JwtResponse;
 import com.eNIC.drp.eNICdrp.entity.UserAccount;
 
 @Service

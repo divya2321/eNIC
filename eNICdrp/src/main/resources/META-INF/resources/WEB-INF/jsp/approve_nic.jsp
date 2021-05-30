@@ -19,8 +19,7 @@
 
 </head>
 
-<body style="background-color:#FFFFFF" onload="InitPage();Init();"
-      onbeforeunload="DeletePage()">
+<body style="background-color:#FFFFFF"  onbeforeunload="DeletePage();" onload="InitPage();Init();"     >
    <div class="navbar bg-dark w3-large" >
             
             <span class="nav-item text-light" style="font-size:20px;">
@@ -67,7 +66,7 @@ Department for Registration of Persons</span>
 					  	</div>
 					  	
 					  	<div class="form-group">
-					    	<form:label path="name">Full name:</form:label>
+					    	<form:label path="name">Name:</form:label>
 					    	<form:input path="name" type="text" class="form-control" />
 					  	</div>
 					  	
@@ -103,7 +102,7 @@ Department for Registration of Persons</span>
 									    <form:radiobutton path="gender" class="form-check-input" value="Male"/>Male
 								</div>
 								<div class="form-check-inline">
-									    <form:radiobutton path="gender" class="form-check-input" value="Male"/>Female
+									    <form:radiobutton path="gender" class="form-check-input" value="Female"/>Female
 								</div>
 								<div class="form-check-inline">
 									    <form:radiobutton path="gender" lass="form-check-input" value="Other" />Other
@@ -233,7 +232,7 @@ Department for Registration of Persons</span>
 					    	<form:input path="scannedPoliceReport"  type="text" class="form-control" />
 					  	</div>
 					  	
-					  	 <div class="form-group">
+					  	 <div class="form-group" >
 					    	<form:label path="fingerprint">Fingerprint:</form:label>
 					    	<form:textarea path="fingerprint" class="form-control" id="fingerprintTemp"></form:textarea>
 					  	</div>
@@ -248,6 +247,7 @@ Department for Registration of Persons</span>
                                 <p>
                                     <img id="Fpimg" width="160" height="200" />
                                 </p>
+                                  <label><input type="checkBox" id="Cb_PreviewOn" onclick="PreviewOnChecked();" />Preview On(MultiPart)</label>
                                      <button id="Bt_Extract" type="button" onclick="GetTemplateData()" style="width:140px;height:30px;">Get Template Data</button>
                           <textarea id="Tb_DisplayLog" style="width:320px;height:250px;" ></textarea>
 	  			</div>

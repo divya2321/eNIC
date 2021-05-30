@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.eNIC.drp.api.eNICdrpAPI.enicentity.DRPCommonEntity;
 import com.eNIC.drp.api.eNICdrpAPI.enicservices.CommonServices;
-import com.eNIC.drp.api.eNICdrpAPI.exception.ResourceNotFoundException;
 import com.eNIC.drp.api.eNICdrpAPI.exception.ResourceNotSavedException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(value = "DRP Endpoints", description = "Register, Find All and Find NIC details", tags = {"DRPEndpoints"})
+@Api(value = "DRP Endpoints", description = "Register, Find All and Find by NIC", tags = {"DRP Endpoints"})
 @RestController
 @RequestMapping("/api/drp")
 public class CommonController {
@@ -43,9 +41,7 @@ public class CommonController {
 	public List<DRPCommonEntity> getAll()throws Exception{
 		
 		List<DRPCommonEntity> commonEntities = commonService.commonFindAllNicDetail();
-		if (commonEntities.size() == 0) {
-			throw new ResourceNotFoundException("No records for the requested data");			
-		}
+		
 		return commonEntities;
 	}
 	
@@ -55,9 +51,7 @@ public class CommonController {
 	public List<DRPCommonEntity> getNIC(@RequestParam("nic") String nic)throws Exception{
 		
 		List<DRPCommonEntity> commonEntities = commonService.commonFindNicDetail(nic);
-		if (commonEntities.size()==0) {
-			throw new ResourceNotFoundException("No records for the requested data");
-		}
+	
 		return commonEntities;
 	}
 

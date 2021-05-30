@@ -3,6 +3,7 @@ package com.eNIC.drp.api.eNICdrpAPI.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -50,20 +51,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		// We don't need CSRF for this example
-//		httpSecurity.csrf().disable()
-//		// dont authenticate this particular request
-//		.authorizeRequests().antMatchers("/drp").permitAll();
-//
-//// Add a filter to validate the tokens with every request
-//httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//		
-		
-//		register
-		
+	
 		httpSecurity.csrf().disable()
 		// dont authenticate this particular request
-		.authorizeRequests().antMatchers("/").permitAll().
+		.authorizeRequests()
+		.antMatchers(
+                HttpMethod.GET,
+                "/",
+                "/v2/api-docs",           // swagger
+                "/webjars/**",            // swagger-ui webjars
+                "/swagger-resources/**",  // swagger-ui resources
+                "/configuration/**",      // swagger configuration
+                "/*.html",
+                "/favicon.ico",
+                "/**/*.html",
+                "/**/*.css",
+                "/**/*.js"
+        ).permitAll().
 		// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 		// make sure we use stateless session; session won't be used to
@@ -71,8 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-// Add a filter to validate the tokens with every request
-httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		// Add a filter to validate the tokens with every request
+		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 
 

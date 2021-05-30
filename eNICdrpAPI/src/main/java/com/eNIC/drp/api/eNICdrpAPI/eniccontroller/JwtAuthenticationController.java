@@ -4,9 +4,7 @@ package com.eNIC.drp.api.eNICdrpAPI.eniccontroller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,14 +13,15 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 import com.eNIC.drp.api.eNICdrpAPI.config.JwtTokenUtil;
-import com.eNIC.drp.api.eNICdrpAPI.enicentity.JwtResponse;
 import com.eNIC.drp.api.eNICdrpAPI.enicentity.UserAccount;
 import com.eNIC.drp.api.eNICdrpAPI.enicservices.JwtUserDetailsService;
 
 import io.jsonwebtoken.impl.DefaultClaims;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(value = "Authentication Endpoints", description = "Register user and refresh token", tags = {"Authentication Endpoints"})
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -37,7 +36,7 @@ public class JwtAuthenticationController {
 	private JwtUserDetailsService userDetailsService;
 
 
-
+	@ApiOperation(value = "Register user")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String saveUser(@RequestBody UserAccount userAccount) throws Exception {
 		userDetailsService.save(userAccount);
@@ -59,7 +58,7 @@ public class JwtAuthenticationController {
 		}
 	}
 	
-	
+	@ApiOperation(value = "Refresh token")
 	@RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
 	public ResponseEntity<?> refreshtoken(HttpServletRequest request) throws Exception {
 		// From the HttpRequest get the claims

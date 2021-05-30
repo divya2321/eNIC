@@ -162,9 +162,9 @@
 				}
 			},
 			error : function(request, status, error) {
-				Toast(JSON.stringify(request), gToastTimeout);
-				Toast(JSON.stringify(status), gToastTimeout);
-				Toast(JSON.stringify(error), gToastTimeout);
+				 console.log("request--"+request);
+		        console.log("status--"+status);
+		        console.log("error--"+error);
 			}
 		});
         
@@ -289,19 +289,15 @@
 		jQuery.ajax({
 		    type: "GET",
 		    url : urlStr + "/api/startCapturing?dummy=" + Math.random(),
-		    headers: { 'Access-Control-Allow-Origin': 'http://localhost:8080' },
-		    headers: { 'Access-Control-Allow-Credentials': 'true' },
-		     headers: { 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization' },
 		    dataType: "json",
 		    data: {
 		        sHandle: deviceInfos[selectedDeviceIndex].DeviceHandle,
                 id: pageID,
 		        resetTimer: delayVal
 		    },
-		     xhrFields: {
-      withCredentials: true
-   },
-   crossDomain: true,
+		  xhrFields: {
+    		  withCredentials: true
+   			},
 		    success: function (msg) {
 		        AppendLog("startCapturing", msg.retString);
 		        if (msg.retValue == 0) {
@@ -310,11 +306,13 @@
 		        }
 		    },
 		    error: function (request, status, error) {
-		        Toast(JSON.stringify(request), gToastTimeout);
-		        Toast(JSON.stringify(status), gToastTimeout);
-		        Toast(JSON.stringify(error), gToastTimeout);
+		        console.log("request--"+request);
+		        console.log("status--"+status);
+		        console.log("error--"+error);
 		    }
 		});
+		
+		
 	}
 
 	function AbortCapture() {
@@ -358,13 +356,8 @@
 			return ;
 		}
 
-        if (cb_EncryptOpt) {
-            txt_EncryptKey = document.getElementById("Txt_EncKey").value;
-        }
-        else {
             txt_EncryptKey = "";
-        }
-
+      
 		jQuery.ajax({
 			type : "GET",
 			url : urlStr + "/api/getTemplateData?dummy=" + Math.random(),
@@ -375,8 +368,11 @@
 			    encrypt: cb_EncryptOpt,
 			    encryptKey: txt_EncryptKey,
 			    extractEx: cb_ExtractExMode,
-			    qualityLevel: document.getElementById("DDb_QltyLv").value
+			    qualityLevel: ""
 			},
+			 xhrFields: {
+    		  withCredentials: true
+   			},
 			success : function(msg) {
 				AppendLog("getTemplateData", msg.retString);
 				if(msg.retValue == 0) {	
@@ -386,9 +382,9 @@
 				}
 			},
 			error : function(request, status, error) {
-				Toast(JSON.stringify(request), gToastTimeout);
-				Toast(JSON.stringify(status), gToastTimeout);
-				Toast(JSON.stringify(error), gToastTimeout);
+				   console.log("request--"+request);
+		        console.log("status--"+status);
+		        console.log("error--"+error);
 			}
 		});
 	}
@@ -546,7 +542,7 @@
 
 	function InitPage() {
         
-	    pageID = Math.random();
+	    pageID = 0.8890166686908474;
 	    
 	    if ($('#Cb_PreviewOn').is(":checked")) {
 	        $("#Cb_PreviewOn").attr("checked", 0);
@@ -559,7 +555,7 @@
 	        success: function (msg) {
 	            var current = new Date();
 	            var expires = new Date();
-	            expires.setTime(new Date(Date.parse(current) + 1000 * 60 * 60));
+	            expires.setTime(new Date(Date.parse(current) + 1000 * 60 * 60*24));
 
 	            if(msg) {
 					AppendLogData("[Session ID]" + msg.sessionId);
@@ -568,12 +564,14 @@
 				}
 	        },
 	        error: function (request, status, error) {
+	          console.log("request--"+request);
+		        console.log("status--"+status);
+		        console.log("error--"+error);
 	        }
 	    });
 	}
 
     function DeletePage() {
-        
         var current = new Date();
         document.cookie = "username=; expires=" + current.toUTCString();
 
@@ -830,14 +828,10 @@
 		
 		var templateData = document.getElementById("Tb_Template").value;
 		var templateLength = document.getElementById("Tb_Template").value.length;
-		
-		
-		  if (cb_EncryptOpt) {
-		    txt_EncryptKey = document.getElementById("Txt_EncKey").value;
-		}
-		else {
+	
+	
 		    txt_EncryptKey = "";
-		}
+	
 
 		jQuery.ajax({
             type : "GET",
@@ -851,13 +845,21 @@
 				encrypt: cb_EncryptOpt,
 				encryptKey: txt_EncryptKey,
 				extractEx: cb_ExtractExMode,
-				qualityLevel: document.getElementById("DDb_QltyLv").value
+				qualityLevel: '1'
             },
-            success : function(msg) {
+              xhrFields: {
+    		  withCredentials: true
+   			},
+             success : function(msg) {
                 AppendLog("verifyTemplate", msg.retString);
                 if(msg.retValue == 0) {
                     AppendLogData("Result of verifyTemplate : " + msg.retVerify);
-                    alert(msg.retVerify);
+                     if(msg.retVerify == 'Success'){
+                    alert('Person authenticated');
+              	  }else{
+              	  	alert('Person did not authenticated');
+              	  }
+              	  
                 }
             },
             error : function(request, status, error) {

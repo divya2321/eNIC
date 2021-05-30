@@ -20,19 +20,19 @@ public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExcep
 
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<ExceptionResponse> handleAllEceptionResponse(Exception ex, WebRequest request){
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.toString(), request.getDescription(true));
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public final ResponseEntity<ExceptionResponse> handleNotFoundRequestException(Exception ex, WebRequest request){
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.toString(), request.getDescription(true));
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(ResourceNotSavedException.class)
 	public final ResponseEntity<ExceptionResponse> handleNotSavedRequestException(Exception ex, WebRequest request){
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.toString(), request.getDescription(true));
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 }

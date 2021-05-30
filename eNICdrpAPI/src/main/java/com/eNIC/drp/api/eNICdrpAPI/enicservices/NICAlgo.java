@@ -23,7 +23,7 @@ public class NICAlgo {
 		String monthtext = splitdob[1].trim();
 		System.out.println(monthtext);
 		int dayno = Integer.parseInt(splitdob[2]);
-		
+		String datenotext = null;
 		switch(monthtext) {
           case "01":
             dateno = dayno;
@@ -45,6 +45,7 @@ public class NICAlgo {
             break;
           case "07":
             dateno = 182+dayno;
+            System.out.println(dateno);
             break;
           case "08":
             dateno = 213+dayno;
@@ -69,13 +70,28 @@ public class NICAlgo {
         	switch(gender.toLowerCase()) {
             case "female":
               dateno = dateno + 500 ;
+              datenotext = String.valueOf(dateno);
               break;
             case "male":
+            	 System.out.println("tt");
               dateno = dateno+0;
+              datenotext = String.valueOf(dateno);
+              System.out.println(dateno);
+              
+              String lessDate = String.valueOf(dateno);
+              if(lessDate.length()<3) {
+            	  if (lessDate.length()==1) {
+            		  datenotext = "00".concat(String.valueOf(dateno));
+				}else if (lessDate.length()==2) {
+          		  datenotext = "0".concat(String.valueOf(dateno));
+					
+				}
+            	  
+              }
               break;              
           }
-          
-          return yeartext.concat(String.valueOf(dateno));
+        	System.out.println(datenotext);
+          return yeartext.concat(datenotext);
         } else{
         	System.out.println("ERROR");            
         }

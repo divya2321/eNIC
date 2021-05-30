@@ -93,6 +93,7 @@ public class CommonServices {
 				String dobtext = sdf.format(drpCommonEntity.getDob());
 				
 				String firsthaldNIC = NICAlgo.NICAlgoMethod(dobtext, drpCommonEntity.getGender());
+				System.out.println("Test");
 				nicNo = NICAlgo.generateFullNicNo(generalDetailRepository, drpCommonEntity, firsthaldNIC);
 				System.out.println(nicNo);
 				
@@ -188,6 +189,7 @@ public class CommonServices {
 			
 			IcaoPhoto icaoPhoto = new IcaoPhoto();
 			icaoPhoto.setIdIcaoPhoto(0);
+			System.out.println("aaa");
 			icaoPhoto.setIcaoPhoto(drpCommonEntity.getIcaoPhoto());
 			IcaoPhoto savedIcaoPhoto = icaoPhotoRepository.save(icaoPhoto);
 			
