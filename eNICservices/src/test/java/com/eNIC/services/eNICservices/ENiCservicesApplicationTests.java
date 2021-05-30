@@ -41,20 +41,20 @@ class ENiCservicesApplicationTests {
 		Assert.assertEquals("FDE326264", response.getOrganizationCode());
 	}
 	@Test
-	void findLocationsByNicTest() throws RestClientException, URISyntaxException {
+	void getAllOganizationTest() throws RestClientException, URISyntaxException {
 		
 		List<OrganizationDetail>  response = serviceServices.getAllServices();
 		Assert.assertNotNull(response);
 	}
 	@Test
-	void approveTest() throws Exception {
+	void approveOraganizationTest() throws Exception {
 		
 		OrganizationDetail  response = serviceServices.updateStatus(51,"Approved");
 		Assert.assertEquals("CS45848464", response.getOrganizationCode());
 		Assert.assertEquals("Approved", response.getOrganizationStatus());
 	}
 	@Test
-	void rejectTest() throws Exception {
+	void rejectOraganizationTest() throws Exception {
 		
 		OrganizationDetail  response = serviceServices.updateStatus(52,"Rejected");
 		Assert.assertEquals("BDF6629562", response.getOrganizationCode());

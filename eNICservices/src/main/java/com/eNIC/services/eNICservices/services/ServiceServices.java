@@ -2,9 +2,7 @@ package com.eNIC.services.eNICservices.services;
 
 import java.sql.Date;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.eNIC.services.eNICservices.PasswordEncript.Encrypt;
 import com.eNIC.services.eNICservices.config.JwtTokenUtil;
 import com.eNIC.services.eNICservices.entity.CommonService;
@@ -40,19 +37,16 @@ public class ServiceServices {
 	private PasswordEncoder bcryptEncoder;
 	
 	@Autowired
-	private OrgRepository findAllOrgRep;
-	
-	@Autowired
-	private OrgRepository changeStatusRepo;
-	
-	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-	private JwtUserDetailsService userDetailsService;
+	private UserDetailsServiceImpl userDetailsService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	
 	@Transactional
@@ -98,7 +92,7 @@ public class ServiceServices {
 	
 	public List<OrganizationDetail> getAllServices(){
 		
-		List<OrganizationDetail> orgs = findAllOrgRep.findAllOrganization();	
+		List<OrganizationDetail> orgs = orgRepository.findAllOrganization();	
 		
 		return orgs;
 		
@@ -106,40 +100,61 @@ public class ServiceServices {
 	
 	
 	@Transactional
-	public OrganizationDetail updateStatus(int oid, String ostatus) throws Exception {
+	public OrganizationDetail updateStatus(int oid, String status) throws Exception {
+	
+	
+		OrganizationDetail organizationDetail = orgRepository.findByOrgId(oid);
+		organizationDetail.setOrganizationStatus(status);
 		
-		System.out.println("AAAAAAAAAAAAAAAAAA"+oid+" "+ostatus);
+		OrganizationDetail updatedOrgDetail;
 		
-		Useraccount userAccount = new Useraccount();
-		OrganizationDetail orgType = changeStatusRepo.findByOrgId(oid);
-		String username=orgType.getOrganizationType().substring(0, 3)+orgType.getOrganizationCode();
-		String password=Encrypt.encript(orgType.getOrganizationCode());
-		userAccount.setIdUseraccount(0);
-		userAccount.setAccountUsername(username);
-		userAccount.setAccountPassword(bcryptEncoder.encode(password));
-		userAccount.setCreatedDate(new Date(System.currentTimeMillis()));
-		Useraccount savedUserAcc =  userAccRepository.save(userAccount);
-		
-		OrganizationDetail updateOrg = changeStatusRepo.findByOrgId(oid);
-		updateOrg.setIdOrganization(oid);
-		updateOrg.setOrganizationStatus(ostatus);
-		updateOrg.setIdUseraccount(savedUserAcc);
-		OrganizationDetail updatedDetail = changeStatusRepo.save(updateOrg);
-		
-		if (ostatus.equalsIgnoreCase("Approved") && updatedDetail!=null) {
+			if (status.equalsIgnoreCase("Approved")){
+			
+				Useraccount userAccount = new Useraccount();
+				
+				String username=organizationDetail.getOrganizationType().substring(0, 3)+organizationDetail.getOrganizationCode();
+				String password=Encrypt.encript(organizationDetail.getOrganizationCode());
+				
+				userAccount.setIdUseraccount(0);
+				userAccount.setAccountUsername(username);
+				userAccount.setAccountPassword(bcryptEncoder.encode(password));
+				userAccount.setCreatedDate(new Date(System.currentTimeMillis()));
+				
+				Useraccount savedUserAcc =  userAccRepository.save(userAccount);
+				
+				organizationDetail.setIdUseraccount(savedUserAcc);
+				updatedOrgDetail = orgRepository.save(organizationDetail);
+				
+				if (updatedOrgDetail!=null) {
 
+					
+					authenticate(username, password);
+					
+					final UserDetails userDetails = userDetailsService.loadUserByUsername(updatedOrgDetail.getIdUseraccount().getAccountUsername());
+					final String token = jwtTokenUtil.generateToken(userDetails);
+					
+					
+					String msg = updatedOrgDetail.getOrganizationName()+"\n \n Your request to register as a service provider with the DRP has been approved. Below have sent you the username, password and the token."
+							+ "\n Username: " + username
+							+ "\n Pasword: "+ password
+							+ "\n Token: Bearer "+ token;
+					
+					emailService.sendSimpleMessage(updatedOrgDetail.getIdOrgContact().getOrgEmailAddress(), "Approved request.", msg);
+					
+				}
+				
+			}else {
+				 updatedOrgDetail = orgRepository.save(organizationDetail);
+				 
+				 String msg = updatedOrgDetail.getOrganizationName()+"\n \n Your request to register as a service provider with the DRP has been rejected. Please contact DRP for more info.";
+				 
+				emailService.sendSimpleMessage(updatedOrgDetail.getIdOrgContact().getOrgEmailAddress(), "Rejected request.", msg);
+				
+				
+			}
 			
-			System.out.println(updatedDetail.getIdUseraccount().getAccountUsername());
-			System.out.println(updatedDetail.getIdUseraccount().getAccountPassword());
-			authenticate(username, password);
-			
-			final UserDetails userDetails = userDetailsService.loadUserByUsername(updatedDetail.getIdUseraccount().getAccountUsername());
-			final String token = jwtTokenUtil.generateToken(userDetails);
-			
-			System.out.print(token);
-		}
 		
-		return updateOrg;
+		return updatedOrgDetail;
 		
 	}
 	
@@ -158,49 +173,5 @@ public class ServiceServices {
 	}
 
 
-	public String validateAccount(Useraccount userAcc) {
-		
-		Useraccount uacc = userAccRepository.findByUsername(userAcc.getAccountUsername());
-		String endPoint = null;
-		
-		if (uacc != null) {
-			if (bcryptEncoder.matches(userAcc.getAccountPassword(), uacc.getAccountPassword())) {
-				OrganizationDetail orgDetail = orgRepository.findByUserAccId(uacc.getIdUseraccount());
-				if (orgDetail.getOrganizationStatus().equalsIgnoreCase("Approved")) {
-					String orgType = orgDetail.getOrganizationType().toLowerCase();
-					
-					switch (orgType) {
-					case "police":
-						endPoint = "Police end point";
-						break;
-						
-					case "judicial":
-						endPoint = "Judicial end point";
-						break;
-						
-					case "financial":
-						endPoint = "Financial end point";
-						break;
-						
-					case "healthcare":
-						endPoint = "Healthcare end point";
-						break;
-
-					default:
-						break;
-					}
-
-				} else {
-					System.out.println("Do not have access to login");
-				}
-			}else {
-				System.out.println("The entered password is wrong");
-			}
-			
-		} else {
-			System.out.println("Username incorrect");
-		}
-		
-		return endPoint;
-	}
+	
 }

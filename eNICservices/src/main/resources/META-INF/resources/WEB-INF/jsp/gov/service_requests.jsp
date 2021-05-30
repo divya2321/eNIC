@@ -82,8 +82,9 @@
 	      									  <c:choose>
 												  <c:when test="${serviceOrg.organizationStatus=='Pending'}">
 												    <td>
-			      									  <a href="/drp/services/view/update?oid=${serviceOrg.idOrganization}&ostatus=Approved" role="button" class="btn-success">Approve</a>
-			      									  <a href="/drp/services/view/update?oid=${serviceOrg.idOrganization}&ostatus=Rejected" role="button" class="btn-danger">Reject</a>			      									  
+			      									  <a href="/drp/services/view/update?oid=${serviceOrg.idOrganization}&ostatus=Approved" role="button" class="btn btn-success">Approve</a>
+			      									  
+			      									  <a href="/drp/services/view/update?oid=${serviceOrg.idOrganization}&ostatus=Rejected" role="button" class="btn btn-danger">Reject</a>			      									  
 		      									  	</td>  
 												  </c:when>
 												  <c:otherwise>

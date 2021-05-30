@@ -3,38 +3,45 @@ package com.eNIC.services.eNICservices.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eNIC.services.eNICservices.entity.CommonService;
-import com.eNIC.services.eNICservices.entity.Useraccount;
-import com.eNIC.services.eNICservices.orgRepository.UserAccountRepository;
 import com.eNIC.services.eNICservices.services.ServiceServices;
+import com.eNIC.services.eNICservices.validation.OrgRegistrationValidator;
 
 @Controller
-@RequestMapping("/drp/org")
+@RequestMapping("/org")
 public class ServicesController {
 
 	@Autowired
 	private ServiceServices serviceServ;
 	
 	@Autowired
-	private UserAccountRepository userAccountRepository;
+	private OrgRegistrationValidator orgRegistrationValidator;
+	
 	
 	@PostMapping(value = "/registerorg")
-	public String registerOrganization(@ModelAttribute("orgModel") CommonService orgDetail)throws Exception {
+	public String registerOrganization(@ModelAttribute("orgModel") CommonService orgDetail, BindingResult bindingResult, Model theModel)throws Exception {
+		
+		orgRegistrationValidator.validate(orgDetail, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+        	return "service/register_service";
+        }
 		
 		CommonService orgDet = serviceServ.registerService(orgDetail);
 		if (orgDet==null) {
 			throw new Exception("The data are not saved properly");
 		}
-		return "redirect:/drp/org/login";
+		return "redirect:/org/login";
 	} 
 	
 	@GetMapping(value = "/registration")
 	public String viewRegistration(Model model) {
+		
 		
 		CommonService orgDetail = new CommonService();
 		model.addAttribute("orgModel", orgDetail);
@@ -42,28 +49,18 @@ public class ServicesController {
 		
 	}
 	
-	@GetMapping(value = "/login")
-	public String viewLogin(Model model) {
-		
-		Useraccount useraccount = new Useraccount();
-		model.addAttribute("accModel", useraccount);
-		
-		return "service/login";
-		
-	}
+	   @GetMapping("/login")
+	    public String login(Model model, String error, String logout) {
+	        if (error != null)
+	            model.addAttribute("error", "Your username and password is invalid.");
+
+	        if (logout != null)
+	            model.addAttribute("message", "You have been logged out successfully.");
+
+	      
+	        return "service/login";
+	    }
 	
-	@GetMapping(value = "/validatelogin")
-	public void validateUseraccount(@ModelAttribute("accModel") Useraccount userAcc)throws Exception {
-		
-		System.out.println(userAcc.getAccountUsername());
-		System.out.println(userAcc.getAccountPassword());
-		
-//		String endPoint = serviceServ.validateAccount(userAcc);
-//		
-//		if (endPoint != null) {
-//			System.out.println(endPoint);
-//		}
-//		return "redirect:/drp/org/login";
-	} 
+
 	
 }

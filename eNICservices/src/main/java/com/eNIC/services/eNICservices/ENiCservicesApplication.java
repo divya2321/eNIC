@@ -8,6 +8,7 @@ public class ENiCservicesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ENiCservicesApplication.class, args);
+	
 	}
 
 }

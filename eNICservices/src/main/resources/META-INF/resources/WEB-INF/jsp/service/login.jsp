@@ -167,38 +167,29 @@ fieldset{
 </head>
 <body>
 	<div class="main">
-	<button class="btn-primary btn-lg float-right m-2">Register Now</button>
+	<a href="/org/registration" class="btn-primary btn-lg float-right m-2">Register Now</a>
 		<div class="container">
 		
 			<div class="middle">
 				<div id="login">
 
-					<form:form action="/drp/org/validatelogin" id="accform1"  modelAttribute="accModel" method="GET">
+					  <form action="/org/login" method="POST" class="form-signin" autocomplete="off">
 
-						<fieldset class="clearfix">
-
-							<p>
-								<span class="fa fa-user"></span>
-								<form:input path="accountUsername" type="text" Placeholder="Username" />
-							</p>
-							<p>
-								<span class="fa fa-lock"></span>
-								<form:input path="accountPassword" type="password" Placeholder="Password" />
-							</p>
-
-							<div>
-								<span
-									style="width: 48%; text-align: left; display: inline-block;"><a
-									class="small-text" href="#" data-target="#forgotpassword"
-									data-toggle="modal">Forgot password?</a></span> <span
-									style="width: 50%; text-align: right; display: inline-block;">
-									
-									<input type="submit" value="Sign In"></span>
-							</div>
-
-						</fieldset>
-						<div class="clearfix"></div>
-					</form:form>
+          <fieldset class="clearfix">
+			<div class="form-group ${error != null ? 'has-error' : ''}">
+			
+            <p ><span class="fa fa-user"></span><input name="username" type="text"  Placeholder="Username" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fa fa-lock"></span><input name="password" type="password"  Placeholder="Password" /></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <b style="color: red;">${error}</b>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+             <div style="margin-left: 50px">
+                              
+                                <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Login"></span>
+                            </div>
+			</div>
+          </fieldset>
+			<div class="clearfix"></div>
+        </form>
 
 					<div class="clearfix"></div>
 
@@ -218,111 +209,11 @@ fieldset{
 
 
 
-	<div class="modal fade" id="forgotpassword" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document"
-			style="width: 400px; height: 600px">
-			<div class="modal-content">
-
-				<div class="modal-header w3-content">
-					<h5 class="modal-title w3-wide" id="exampleModalLabel">Reset
-						password</h5>
-					<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>-->
-				</div>
-
-				<div class="modal-body">
-					<form accept-charset="UTF-8" role="form" id="login-form" method="post">
-						<fieldset>
-
-							<h6>What is the question?What is the question?What is the
-								question?What is the question?</h6>
-							<div align="center">
-								<input type="password" class="form-control" id="answerbox">
-							</div>
-							<br>
-							<div align="right">
-								<button type="button" class="btn btn-info"
-									data-target="#resetpassword" data-dismiss="modal" data-toggle="modal">Recover</button>
-							</div>
-							<br>
-							
-							<div class="form-group">
-					<p class="help-block">
-						<a class="pull-right text-muted" href="#" id="olvidado"><small>Forgot
-								your password?</small></a>
-					</p>
-						</div>
-					</fieldset>
-					</form>
-				</div>
-
-
-				
-				</div>
-				
-				
-				
-			</div>
-		</div>
 
 
 
-	<div class="modal fade" id="resetpassword" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document"
-			style="width: 400px; height: 600px">
-			<div class="modal-content">
-
-				<div class="modal-header w3-content">
-					<h5 class="modal-title w3-wide" id="exampleModalLabel">Reset
-						password</h5>
-					<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>-->
-				</div>
-
-				<div class="modal-body">
-					<form accept-charset="UTF-8" role="form" id="login-form"
-						method="post">
-						<fieldset>
-							<p align="left">Enter new password:</p>
-							<div align="center">
-								<input type="password" class="form-control" id="answerbox">
-							</div>
-							<br>
-							<p align="left">Confirm new password:</p>
-							<div align="center">
-								<input type="password" class="form-control" id="answerbox">
-							</div>
-							<br>
-							<div align="right">
-								<button class="btn btn-info">Reset password</button>
-							</div>
-
-
-							<div class="form-group">
-								<p class="help-block">
-									<a class="pull-right text-muted" href="#" id="olvidado"><small>Reset
-											your password?</small></a>
-								</p>
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	
 
 </body>
-<script>
-	$('#forgotpassword').on('shown.bs.modal', function() {
-		$('#myInput').trigger('focus')
-	});
-	$('#resetpassword').on('shown.bs.modal', function() {
-		$('#myInput').trigger('focus')
-	});
-</script>
+
 </html>

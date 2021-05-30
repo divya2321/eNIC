@@ -2,20 +2,13 @@ package com.eNIC.services.eNICservices.PasswordEncript;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
 
-/**
- *
- * @author nipun
- */
 public class Encrypt {
 
     private static final String algorithem = "AES";

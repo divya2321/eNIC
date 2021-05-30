@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.eNIC.services.eNICservices.services.EmailService;
 import com.eNIC.services.eNICservices.services.ServiceServices;
 
 
@@ -17,10 +17,13 @@ import com.eNIC.services.eNICservices.services.ServiceServices;
 public class DRPController {
 
 	@Autowired
-	ServiceServices serviceServe;
+	private ServiceServices serviceServe;
+	
+	@Autowired
+	EmailService emailServiceImpl;
 	
 	@GetMapping(value = "/view")
-	public String viewLogin(Model model) {
+	public String viewServices(Model model) {
 		model.addAttribute("allServices", serviceServe.getAllServices());
 		return "gov/service_requests";		
 	}
@@ -30,4 +33,7 @@ public class DRPController {
 		serviceServe.updateStatus(oid, ostatus);
 		return "redirect:/drp/services/view";		
 	}
+
+	
+
 }
