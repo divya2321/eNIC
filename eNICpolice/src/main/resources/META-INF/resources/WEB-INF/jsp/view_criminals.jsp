@@ -137,7 +137,7 @@
 					    	<input type="text" class="form-control" value="${crminials.Generals.fatherNic}" readonly>
 					  	</div>
 					  	
-					  	 <div class="form-group">
+					  	 <div class="form-group"  style="display: none;">
 					    	<label >Fingerprint:</label>
 					    	<textarea class="form-control" id="Tb_Template" size="1000" >${crminials.Generals.fingerprint}</textarea>
 					  	</div>
@@ -153,11 +153,7 @@
                               <div class="form-group">
                                 <button id="Bt_TempDataVerify" onclick="VerifyWithTemplate();" type="button" style="width:120px;height:30px;">Verify</button>
                               </div>
-                                <p>
-                                    <img id="Fpimg" width="160" height="200" />
-                                </p>
-                                    
-                        
+                              
                           </div>
                           <div class="col-sm-4">
                             <textarea id="Tb_DisplayLog" style="width:320px;height:250px;" ></textarea>

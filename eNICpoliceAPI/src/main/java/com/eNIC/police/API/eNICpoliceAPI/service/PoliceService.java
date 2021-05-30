@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.eNIC.police.API.eNICpoliceAPI.Repository.AddressDetailRepository;
 import com.eNIC.police.API.eNICpoliceAPI.Repository.ContactDetailRepository;
 import com.eNIC.police.API.eNICpoliceAPI.Repository.CriminalRecordRepository;
@@ -25,7 +22,6 @@ import com.eNIC.police.API.eNICpoliceAPI.entity.CriminalRecord;
 import com.eNIC.police.API.eNICpoliceAPI.entity.FamilyDetail;
 import com.eNIC.police.API.eNICpoliceAPI.entity.GeneralDetail;
 import com.eNIC.police.API.eNICpoliceAPI.entity.OrganizationDetail;
-import com.eNIC.police.API.eNICpoliceAPI.entity.Useraccount;
 import com.eNIC.police.API.eNICpoliceAPI.exception.ResourceNotFoundException;
 
 

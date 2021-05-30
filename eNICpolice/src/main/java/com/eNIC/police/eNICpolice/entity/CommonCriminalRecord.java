@@ -1,14 +1,6 @@
 package com.eNIC.police.eNICpolice.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import org.springframework.http.codec.multipart.Part;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 public class CommonCriminalRecord implements Serializable {
 
