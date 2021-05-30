@@ -10,10 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -44,6 +44,7 @@ public class GeneralDetail implements Serializable {
 	@Column(name="surname", nullable = false, length = 150)
 	private String surName;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name="dob", nullable = false)
 	private Date dob;
 	
@@ -54,7 +55,7 @@ public class GeneralDetail implements Serializable {
 	private String civilStatus;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idbloodtype", nullable = false)
+	@JoinColumn(name="idbloodtype", nullable = true)
 	private BloodType idBloodType;
 	
 	@JsonIgnore

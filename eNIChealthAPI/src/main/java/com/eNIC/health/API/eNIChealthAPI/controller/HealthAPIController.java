@@ -19,8 +19,12 @@ import com.eNIC.health.API.eNIChealthAPI.exception.DFileNotFoundException;
 import com.eNIC.health.API.eNIChealthAPI.exception.ResourceNotSavedException;
 import com.eNIC.health.API.eNIChealthAPI.service.HealthService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
+@Api(value = "Health Care Endpoints", description = "Health Records Save, Find by NIC", tags = {
+"Health Care Endpoints" })
 @RestController
 @RequestMapping("/api/health")
 public class HealthAPIController {
@@ -31,6 +35,7 @@ public class HealthAPIController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
+	@ApiOperation(value = "Save health record")
 	@PostMapping(value = "/save", produces = { "application/json", "application/xml" }, consumes = { "application/json", "application/xml"})
 	public CommonHealthRecord saveHealthRecord(@RequestHeader(value = "Authorization") String authorization, @RequestBody CommonHealthRecord commonHealthRecord) throws Exception{
 		
@@ -47,6 +52,7 @@ public class HealthAPIController {
 		return hr;		
 	}
 	
+	@ApiOperation(value = "Save blood type")
 	@PutMapping(value = "/saveblood", produces = { "application/json", "application/xml" }, consumes = { "application/json", "application/xml"})
 	public CommonHealthRecord saveBloodType( @RequestBody CommonHealthRecord commonHealthRecord) {
 		CommonHealthRecord btp = healthService.saveBloodType(commonHealthRecord);
@@ -56,6 +62,7 @@ public class HealthAPIController {
 		return btp;
 	}
 
+	@ApiOperation(value = "Search health record by NIC number")
 	@GetMapping(value = "/viewbynic", produces = { "application/json", "application/xml" })
 	public Map<String, Object> getPersonHealth(@RequestParam("nicno") String nicno){
 		

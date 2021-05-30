@@ -90,14 +90,13 @@ public class HealthService {
 	
 	@Transactional
 	public CommonHealthRecord saveBloodType(CommonHealthRecord commonHealthRecord) {
-		System.out.println(":::::::::::::::");
 		GeneralDetail generalDetail = generalDetailRepository.findByNic(commonHealthRecord.getNicNo());	
 		if (generalDetail == null) {
 			throw new DFileNotFoundException("No person found");
 		}
 		BloodType relType = bloodTypeRepository.getBloodType(commonHealthRecord.getBloodType());
 		if (relType == null) {
-			throw new DFileNotFoundException("Check the formtof the bllood type: O+, O- etc");
+			throw new DFileNotFoundException("Check the formt of the bllood type: O+, O- etc");
 		}
 		System.out.println(relType.getBloodType());
 		generalDetail.setIdGeneralDetail(generalDetail.getIdGeneralDetail());
