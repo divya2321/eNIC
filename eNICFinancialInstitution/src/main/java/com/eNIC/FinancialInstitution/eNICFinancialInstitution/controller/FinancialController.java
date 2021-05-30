@@ -194,9 +194,6 @@ public class FinancialController {
 	                PDFTextStripper tStripper = new PDFTextStripper();
 
 	                String pdfFileInText = tStripper.getText(pDDocument);
-	                //System.out.println("Text:" + st);
-
-	                // split by whitespace
 	                String lines[] = pdfFileInText.split("\\r?\\n");
 	                for (String line : lines) {
 	                    System.out.println(line);

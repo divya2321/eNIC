@@ -121,7 +121,7 @@
 					  	</div>
 					  		
 					  
-					  	 <div class="form-group">
+					  	 <div class="form-group" style="display: none;">
 					    	<label >Fingerprint:</label>
 					    	<textarea class="form-control" id="Tb_Template" size="1000" >${person.fingerprint}</textarea>
 					  	</div>
@@ -137,10 +137,7 @@
                               <div class="form-group">
                                 <button id="Bt_TempDataVerify" onclick="VerifyWithTemplate();" type="button" style="width:120px;height:30px;">Verify</button>
                               </div>
-                                <p>
-                                    <img id="Fpimg" width="160" height="200" />
-                                </p>
-                                    
+                             
                         
                           </div>
                           <div class="col-sm-4">

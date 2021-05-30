@@ -11,8 +11,6 @@ import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.Addr
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.CommonGeneralDetail;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.ContactDetail;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.GeneralDetail;
-import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.OrganizationDetail;
-import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.entity.Useraccount;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.exception.ResourceNotFoundException;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.AddressDetailRepository;
 import com.eNIC.financialinstitution.API.eNICfinancialinstitutionAPI.repository.ContactDetailRepository;
