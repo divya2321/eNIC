@@ -77,15 +77,7 @@
 					
 					<div class="row">
 			
-						<div class="col-sm-4">
-                                <label>FingerPrint Live Image</label>
-                          
-                            
-                                <p>
-                                    <img id="Fpimg" width="160" height="200" />
-                                </p>
-                                 
-                                 </div>  
+					
                                  
                                  <div class="col-sm-8">
                                  
@@ -118,9 +110,6 @@
 	</div>
 </div>
 
-<script>
-
-</script>
 
 </body>
 </html>

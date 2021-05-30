@@ -1,11 +1,8 @@
 package com.location.tracker.locationtracker.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import com.location.tracker.locationtracker.entity.GeneralDetail;
 import com.location.tracker.locationtracker.entity.LocationTracker;
 
 public interface LocationTrackerRepository extends JpaRepository<LocationTracker, Integer> {
