@@ -4,12 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.eNIC.judicial.API.eNICjudicialAPI.Repository.UserAccountRepository;
 import com.eNIC.judicial.API.eNICjudicialAPI.entity.Useraccount;
-
 import java.util.ArrayList;
 
 @Service

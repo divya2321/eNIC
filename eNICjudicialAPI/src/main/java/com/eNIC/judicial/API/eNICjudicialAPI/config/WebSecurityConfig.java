@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -55,7 +54,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/swagger-ui/index.html").permitAll().
+				.authorizeRequests().antMatchers(
+		                HttpMethod.GET,
+		                "/",
+		                "/v2/api-docs",           // swagger
+		                "/webjars/**",            // swagger-ui webjars
+		                "/swagger-resources/**",  // swagger-ui resources
+		                "/configuration/**",      // swagger configuration
+		                "/*.html",
+		                "/favicon.ico",
+		                "/**/*.html",
+		                "/**/*.css",
+		                "/**/*.js"
+		        ).permitAll().
 				// all other requests need to be authenticated
 						anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to

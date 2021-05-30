@@ -5,18 +5,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import com.eNIC.judicial.API.eNICjudicialAPI.Repository.CriminalRecordRepository;
 import com.eNIC.judicial.API.eNICjudicialAPI.Repository.OrgRepository;
 import com.eNIC.judicial.API.eNICjudicialAPI.Repository.UserAccRepository;
 import com.eNIC.judicial.API.eNICjudicialAPI.entity.OrganizationDetail;
 import com.eNIC.judicial.API.eNICjudicialAPI.entity.Useraccount;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

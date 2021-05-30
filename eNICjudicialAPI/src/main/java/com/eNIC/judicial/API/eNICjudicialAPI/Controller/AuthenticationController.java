@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eNIC.judicial.API.eNICjudicialAPI.config.JwtTokenUtil;
 
 import io.jsonwebtoken.impl.DefaultClaims;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(value = "Authentication Endpoints", description = "Refresh token", tags = {"Authentication Endpoints"})
 @RestController
 @RequestMapping("/api/judicial")
 public class AuthenticationController {
@@ -23,6 +26,7 @@ public class AuthenticationController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
+	@ApiOperation(value = "Refresh token")
 	@RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
 	public ResponseEntity<?> refreshtoken(HttpServletRequest request) throws Exception {
 		// From the HttpRequest get the claims
